@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARK Program Presentation - Cimarron-Memorial High School</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #800000 0%, #2c2c2c 50%, #800000 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="spartanGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="%23C0C0C0" stroke-width="0.2" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23spartanGrid)"/></svg>');
+            z-index: -1;
+        }
+
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            background: linear-gradient(135deg, rgba(128,0,0,0.95) 0%, rgba(44,44,44,0.95) 50%, rgba(128,0,0,0.95) 100%);
+            margin: 30px 0;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(192,192,192,0.2);
+            min-height: 700px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #C0C0C0;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #800000, #C0C0C0, #800000);
+        }
+
+        .spartan-shield {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #800000, #C0C0C0);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            opacity: 0.6;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: linear-gradient(45deg, #800000, #C0C0C0);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 4.5em;
+            color: #C0C0C0;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.8);
+            letter-spacing: 4px;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            color: #C0C0C0;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #800000;
+            padding-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-weight: bold;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+        }
+
+        h3 {
+            font-size: 2.2em;
+            color: #ffffff;
+            margin: 25px 0 20px 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .quote {
+            font-size: 1.4em;
+            color: #C0C0C0;
+            text-align: center;
+            font-style: italic;
+            margin: 25px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.6);
+            border-left: 8px solid #800000;
+            border-radius: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .quote::before {
+            content: '"';
+            font-size: 3em;
+            color: #800000;
+            position: absolute;
+            top: -10px;
+            left: 15px;
+        }
+
+
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px auto;
+            max-width: 900px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #800000, #C0C0C0);
+            color: white;
+            padding: 60px;
+            border-radius: 20px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.4s ease;
+            border: 4px solid #ffffff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s;
+        }
+
+        .stat-box:hover::before {
+            animation: shine 0.6s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        .stat-number {
+            font-size: 4.5em;
+            font-weight: 900;
+            display: block;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.8);
+            font-family: 'Impact', 'Arial Black', sans-serif;
+        }
+
+        .stat-label {
+            font-size: 1.4em;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .pillar {
+            background: rgba(0,0,0,0.7);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 8px solid #800000;
+            border: 3px solid #C0C0C0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        .pillar::before {
+            content: '🏛️';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5em;
+            opacity: 0.6;
+        }
+
+        .pillar h4 {
+            color: #C0C0C0;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        ul {
+            margin: 25px 0;
+            padding-left: 0;
+        }
+
+        li {
+            list-style: none;
+            margin: 15px 0;
+            padding-left: 40px;
+            position: relative;
+            color: #ffffff;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        li::before {
+            content: "⚔️";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #800000;
+            font-size: 1.3em;
+        }
+
+        .budget-breakdown {
+            background: rgba(0,0,0,0.7);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid #800000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border-left: 6px solid #800000;
+            font-size: 1.1em;
+        }
+
+        .budget-amount {
+            font-weight: bold;
+            color: #C0C0C0;
+            font-size: 1.4em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            background: linear-gradient(135deg, #800000, #C0C0C0);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #ffffff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #800000, #2c2c2c);
+            color: white;
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px 0;
+            border: 4px solid #C0C0C0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        .cta-section h3 {
+            color: #C0C0C0;
+            margin-bottom: 25px;
+        }
+
+        .request-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .request-item {
+            background: rgba(0,0,0,0.5);
+            padding: 25px;
+            border-radius: 15px;
+            border: 3px solid #800000;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: transform 0.3s ease;
+        }
+
+        .request-item:hover {
+            transform: scale(1.05);
+            border-color: #C0C0C0;
+        }
+
+        .emphasis {
+            background: rgba(128,0,0,0.3);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 8px solid #800000;
+            margin: 25px 0;
+            border: 3px solid #C0C0C0;
+            font-size: 1.1em;
+        }
+
+        .final-quote {
+            text-align: center;
+            font-size: 1.5em;
+            color: #C0C0C0;
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            border: 3px solid #800000;
+        }
+
+        .spartan-banner {
+            text-align: center;
+            margin: 25px 0;
+            padding: 25px;
+            background: linear-gradient(90deg, #800000, #C0C0C0, #800000);
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 1.3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            border: 2px solid #ffffff;
+        }
+
+        .cmhs-header {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.6);
+            border-radius: 15px;
+            border: 2px solid #800000;
+        }
+
+        .cmhs-address {
+            font-size: 0.9em;
+            color: #C0C0C0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 25px;
+                margin: 20px 0;
+            }
+            
+            h1 {
+                font-size: 3em;
+            }
+            
+            h2 {
+                font-size: 2.2em;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">1</div>
+            <h1>SPARK</h1>
+            <div class="subtitle">Student Partnership for Academic Readiness and Knowledge</div>
+            <div class="cmhs-header">
+                <div class="subtitle">Cimarron-Memorial High School Comprehensive Intervention Program</div>
+                <div class="cmhs-address">2301 N Tenaya Way, Las Vegas, Nevada 89128</div>
+            </div>
+            <div class="spartan-banner">🏛️ SPARTANS RISE TOGETHER 🏛️</div>
+            <div class="quote">Proposal for 2026-2027 School Year</div>
+        </div>
+
+        <!-- Slide 2: The Challenge -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">2</div>
+            <h2>The Challenge We Face</h2>
+            <h3>Current Academic Reality at Cimarron-Memorial</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">5%</span>
+                    <span class="stat-label">Proficient in Mathematics</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">20%</span>
+                    <span class="stat-label">Proficient in ELA</span>
+                </div>
+            </div>
+            
+            <ul>
+                <li>Achievement gaps persist despite current interventions</li>
+                <li>Traditional tutoring approaches show limited impact</li>
+                <li>Families need comprehensive support systems</li>
+            </ul>
+            
+            <div class="quote">We need a comprehensive solution, not just more tutoring</div>
+        </div>
+
+        <!-- Slide 3: Introducing SPARK -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">3</div>
+            <h2>Introducing SPARK</h2>
+            <h3>Beyond Traditional Tutoring</h3>
+            
+            <div class="emphasis">
+                <strong>S</strong>tudent <strong>P</strong>artnership for <strong>A</strong>cademic <strong>R</strong>eadiness and <strong>K</strong>nowledge
+            </div>
+            
+            <ul>
+                <li>Comprehensive family-engagement model</li>
+                <li>Addresses systemic barriers to achievement</li>
+                <li>Research-based intervention + family empowerment</li>
+                <li>Culturally responsive approach</li>
+            </ul>
+            
+            <div class="quote">Igniting potential within every student</div>
+        </div>
+
+        <!-- Slide 4: Three Core Pillars -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">4</div>
+            <h2>Three Core Program Pillars</h2>
+            
+            <div class="pillars">
+                <div class="pillar">
+                    <h4>1. Academic Intervention</h4>
+                    <ul>
+                        <li>Daily 1-hour sessions</li>
+                        <li>5:1 student-tutor ratio</li>
+                        <li>CCSD-certified teachers</li>
+                        <li>Flexible curriculum approach</li>
+                    </ul>
+                </div>
+                
+                <div class="pillar">
+                    <h4>2. Family Engagement</h4>
+                    <ul>
+                        <li>Mandatory participation</li>
+                        <li>Quarterly conferences</li>
+                        <li>Parent education mixers</li>
+                        <li>Bilingual support (25% staff)</li>
+                    </ul>
+                </div>
+                
+                <div class="pillar">
+                    <h4>3. Community Partnership</h4>
+                    <ul>
+                        <li>Local organizations</li>
+                        <li>Resource development</li>
+                        <li>Sustainable funding</li>
+                        <li>Wraparound services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: What Makes SPARK Different -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">5</div>
+            <h2>What Makes SPARK Different</h2>
+            <h3>5 Key Differentiators</h3>
+            
+            <ul>
+                <li><strong>Comprehensive family integration</strong> as core component</li>
+                <li><strong>Cultural responsiveness</strong> (25% bilingual staff)</li>
+                <li><strong>Teacher professional development</strong> focus</li>
+                <li><strong>Community asset integration</strong> approach</li>
+                <li><strong>Data-driven accountability</strong> system</li>
+            </ul>
+            
+            <div class="quote">Evidence-based practices + innovative elements</div>
+        </div>
+
+        <!-- Slide 6: Target Population & Goals -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">6</div>
+            <h2>Target Population & Goals</h2>
+            <h3>Year 1 Objectives</h3>
+            
+            <div class="emphasis">
+                <strong>Target:</strong> 50 students (9th & 10th grade)<br>
+                Multiple risk factors (academic, attendance, behavioral)
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">95%</span>
+                    <span class="stat-label">Show MAP Growth</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">90%</span>
+                    <span class="stat-label">Earn C+ in Core Courses</span>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">85%</span>
+                    <span class="stat-label">Family Completion Rate</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">80%</span>
+                    <span class="stat-label">Program Retention</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Budget Overview -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">7</div>
+            <h2>Program Investment</h2>
+            <h3>Budget Overview - $171,400 Annual</h3>
+            
+            <div class="budget-breakdown">
+                <div class="budget-item">
+                    <span><strong>Personnel (95%):</strong> Program Manager, 10 Tutors, Training</span>
+                    <span class="budget-amount">$162,400</span>
+                </div>
+                <div class="budget-item">
+                    <span>Program Manager</span>
+                    <span class="budget-amount">$26,400</span>
+                </div>
+                <div class="budget-item">
+                    <span>10 Tutoring Staff</span>
+                    <span class="budget-amount">$130,000</span>
+                </div>
+                <div class="budget-item">
+                    <span>Training & Development</span>
+                    <span class="budget-amount">$6,000</span>
+                </div>
+                <div class="budget-item">
+                    <span><strong>Operations (5%):</strong> Family events, materials, communication</span>
+                    <span class="budget-amount">$9,000</span>
+                </div>
+            </div>
+            
+            <div class="emphasis">
+                <strong>Cost per student:</strong> ~$3,428/year
+            </div>
+        </div>
+
+        <!-- Slide 8: Funding Strategy -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">8</div>
+            <h2>Funding Strategy</h2>
+            <h3>Diversified Revenue Model</h3>
+            
+            <div class="budget-breakdown">
+                <div class="budget-item">
+                    <span><strong>50% CCSD Investment</strong> - Demonstrates district commitment</span>
+                    <span class="budget-amount">$85,700</span>
+                </div>
+                <div class="budget-item">
+                    <span><strong>25% Federal/State Grants</strong> - Title I, IDEA, Nevada DOE</span>
+                    <span class="budget-amount">$42,850</span>
+                </div>
+                <div class="budget-item">
+                    <span><strong>15% Corporate/Foundation</strong> - Community partnerships</span>
+                    <span class="budget-amount">$25,700</span>
+                </div>
+                <div class="budget-item">
+                    <span><strong>10% Fundraising/Donations</strong> - Community events, individual donors</span>
+                    <span class="budget-amount">$17,150</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Implementation Timeline -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">9</div>
+            <h2>Implementation Timeline</h2>
+            <h3>Path to 2026-2027 Launch</h3>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Spring 2025</div>
+                    <div>Administrative approval & budget planning</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Summer 2025</div>
+                    <div>Staff recruitment & intensive training</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Fall 2025</div>
+                    <div>Student/family recruitment & selection</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Q2 2026</div>
+                    <div>Program launch with full implementation</div>
+                </div>
+            </div>
+            
+            <div class="emphasis">
+                <strong>Critical Decision Point:</strong> Budget inclusion deadline approaching
+            </div>
+        </div>
+
+        <!-- Slide 10: Expected Impact -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">10</div>
+            <h2>Expected Impact</h2>
+            <h3>Transformational Outcomes</h3>
+            
+            <div class="pillars">
+                <div class="pillar">
+                    <h4>Academic Achievement</h4>
+                    <ul>
+                        <li>Measurable reduction in achievement gaps</li>
+                        <li>Improved course performance & MAP scores</li>
+                    </ul>
+                </div>
+                
+                <div class="pillar">
+                    <h4>Family Empowerment</h4>
+                    <ul>
+                        <li>Sustained engagement beyond program</li>
+                        <li>Enhanced advocacy skills</li>
+                    </ul>
+                </div>
+                
+                <div class="pillar">
+                    <h4>School Culture</h4>
+                    <ul>
+                        <li>Stronger community relationships</li>
+                        <li>Model for district replication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Partnership Request -->
+        <div class="slide">
+            <div class="spartan-shield"></div>
+            <div class="slide-number">11</div>
+            <div class="cta-section">
+                <h2 style="color: #C0C0C0; border: none; margin-bottom: 30px;">Your Partnership Makes SPARK Possible</h2>
+                <h3>Seeking Administrative Collaboration</h3>
+                
+                <div class="emphasis" style="background: rgba(128,0,0,0.3); border-left: 5px solid #800000;">
+                    <strong>I recognize this is an extensive program</strong> — and that's exactly why it can transform our students' academic trajectories where traditional interventions have fallen short.
+                </div>
+                
+                <p style="font-size: 1.2em; margin: 20px 0;"><strong>My immediate goal:</strong> Secure your buy-in and partner with a dedicated administrator to collaboratively refine SPARK for Cimarron-Memorial's specific needs and CCSD budget requirements.</p>
+                
+                <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; margin: 20px 0; border: 2px solid #800000;">
+                    <h4 style="color: #C0C0C0;">Critical Timeline</h4>
+                    <p>📅 <strong>Budget Deadline:</strong> Program must be finalized for <strong>2026-2027 school budget inclusion</strong></p>
+                    <p>⏰ <strong>Early Decision Advantage:</strong> Prompt commitment provides essential time to pursue alternative funding streams</p>
+                </div>
+                
+                <div class="request-grid">
+                    <div class="request-item">
+                        ⚔️ <strong>Your endorsement</strong> of the SPARK concept
+                    </div>
+                    <div class="request-item">
+                        ⚔️ <strong>Assignment of an administrative collaborator</strong> to co-develop the program
+                    </div>
+                    <div class="request-item">
+                        ⚔️ <strong>Commitment to explore</strong> budget integration for 2026-2027
+                    </div>
+                </div>
+                
+                <div style="margin: 30px 0;">
+                    <h4 style="color: #C0C0C0;">Next Step</h4>
+                    <p><em>Schedule a follow-up meeting to discuss:</em></p>
+                    <ul style="text-align: left; max-width: 600px; margin: 0 auto;">
+                        <li>Program customization for our school community</li>
+                        <li>Budget planning and funding strategy</li>
+                        <li>Implementation timeline and logistics</li>
+                    </ul>
+                </div>
+                
+                <div class="spartan-banner" style="margin-top: 40px;">
+                    🏛️ Together, we can SPARK transformational change for our Spartans 🏛️
+                </div>
+            </div>
+            
+            <div class="final-quote">
+                "The students of Cimarron-Memorial deserve educational opportunities that match their potential."
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Enhanced interactivity for the presentation
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'slideIn 0.8s ease-out';
+                    }
+                });
+            });
+
+            slides.forEach(slide => {
+                observer.observe(slide);
+            });
+
+            // Add spartan shield animation
+            document.querySelectorAll('.spartan-shield').forEach(shield => {
+                shield.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.2) rotate(360deg)';
+                    this.style.transition = 'transform 0.6s ease';
+                });
+                shield.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .spartan-shield {
+                transition: all 0.3s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
