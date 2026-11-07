@@ -1,0 +1,379 @@
+<title>Nation Lesson 7</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: a single-column working page that works on a phone or a laptop. A sticky strip names the student and the steps; one step shows at a time; locked steps wait for a code your tutor says aloud. */
+:root {
+  --bg: #F3F5FA;
+  --panel: #FFFFFF;
+  --panel2: #E8ECF5;
+  --ink: #14213D;
+  --muted: #55627E;
+  --line: #C9D1E3;
+  --accent: #2457D6;
+  --accent-ink: #FFFFFF;
+  --good: #17804A;
+  --good-bg: #DDF3E6;
+  --bad: #B83232;
+  --bad-bg: #F9E0E0;
+  --gold: #8F6200;
+  --gold-bg: #FAEFCB;
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-body: 'Atkinson Hyperlegible', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1526; --panel: #15213B; --panel2: #1D2C4D; --ink: #E8EEFA; --muted: #9DAAC6; --line: #2C3C60;
+    --accent: #88AAFF; --accent-ink: #0D1526; --good: #5BD593; --good-bg: #12392B; --bad: #FF8E8E; --bad-bg: #40191F;
+    --gold: #F2C35B; --gold-bg: #3A2D0E; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1526; --panel: #15213B; --panel2: #1D2C4D; --ink: #E8EEFA; --muted: #9DAAC6; --line: #2C3C60;
+  --accent: #88AAFF; --accent-ink: #0D1526; --good: #5BD593; --good-bg: #12392B; --bad: #FF8E8E; --bad-bg: #40191F;
+  --gold: #F2C35B; --gold-bg: #3A2D0E; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.5;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; overflow-x: hidden; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.2; text-wrap: balance; margin: 0; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0; }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px 8px; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.brand { font-family: var(--f-display); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: .78rem; color: var(--muted); }
+.who { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: .9rem; }
+.who b { font-family: var(--f-display); background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 1px 12px; }
+.linkbtn { background: none; border: 0; color: var(--accent); text-decoration: underline; padding: 4px; font-size: .9rem; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-block: 8px 2px; scrollbar-width: thin; }
+.tab { flex: 0 0 auto; background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: .92rem; white-space: nowrap; }
+.tab[aria-current="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; }
+.tab.locked { color: var(--muted); border-style: dashed; }
+.tab .tick { color: var(--good); font-weight: 800; margin-left: 4px; }
+.tab[aria-current="true"] .tick { color: var(--accent-ink); }
+
+main { display: flex; flex-direction: column; gap: 16px; padding-top: 18px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.lede { color: var(--muted); }
+.cat { font-family: var(--f-display); font-weight: 700; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.stem { font-family: var(--f-display); font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
+.opts { display: grid; gap: 8px; }
+.opt { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; text-align: left; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 100%; min-width: 0; }
+.opt .n { font-family: var(--f-display); font-weight: 800; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--panel2); }
+.opt .t { padding-top: 3px; overflow-wrap: anywhere; }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--panel2); }
+.opt[aria-pressed="true"] .n { background: var(--accent); color: var(--accent-ink); }
+.opt.right { border-color: var(--good); background: var(--good-bg); }
+.opt.right .n { background: var(--good); color: var(--bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.opt.wrong .n { background: var(--bad); color: var(--bg); }
+.opt .why { grid-column: 2; font-size: .93rem; color: var(--muted); }
+.opt.wrong .why, .opt.right .why { color: var(--ink); }
+.opt:disabled { cursor: default; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn { background: var(--panel); border: 2px solid var(--line); border-radius: 10px; padding: 9px 16px; font-weight: 700; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.conf { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.conf .lab { font-size: .9rem; color: var(--muted); margin-right: 4px; }
+.pill { background: var(--panel); border: 2px solid var(--line); border-radius: 999px; padding: 6px 16px; font-weight: 700; }
+.pill[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.explain { border-left: 6px solid var(--good); background: var(--good-bg); border-radius: 8px; padding: 12px 14px; }
+.explain.warn { border-color: var(--gold); background: var(--gold-bg); }
+.explain b.h { font-family: var(--f-display); letter-spacing: .06em; text-transform: uppercase; font-size: .72rem; display: block; margin-bottom: 2px; }
+.sent { background: var(--panel2); border-radius: 10px; padding: 12px 14px; font-size: 1.05rem; overflow-wrap: anywhere; }
+.sent.before { text-decoration: line-through; text-decoration-color: var(--bad); text-decoration-thickness: 2px; }
+.sent.after { border: 2px solid var(--good); background: var(--good-bg); }
+.ba { display: grid; gap: 8px; }
+.ba .lab { font-family: var(--f-display); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.6rem; font-weight: 700; letter-spacing: .06em; background: var(--panel2); border: 2px dashed var(--accent); border-radius: 12px; padding: 12px 16px; overflow-wrap: anywhere; }
+.lock { display: flex; flex-direction: column; gap: 12px; }
+.lock input { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .1em; padding: 10px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--panel); width: min(100%, 320px); }
+.err { color: var(--bad); font-weight: 700; min-height: 1.4em; }
+.passage { display: flex; flex-direction: column; gap: 12px; max-width: 65ch; }
+.passage h3 { font-size: 1.15rem; }
+.m { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+.m:first-of-type { border-top: 0; padding-top: 0; }
+.tag { display: inline-block; background: var(--panel2); border-radius: 6px; padding: 0 8px; font-size: .82rem; color: var(--muted); }
+.sym { font-family: var(--f-display); font-weight: 800; background: var(--accent); color: var(--accent-ink); border-radius: 6px; padding: 0 8px; margin-right: 6px; }
+textarea { width: 100%; min-height: 88px; border: 2px solid var(--line); border-radius: 10px; padding: 10px 12px; background: var(--panel); resize: vertical; }
+.book { display: flex; flex-direction: column; gap: 8px; }
+.book .meta { color: var(--muted); font-size: .9rem; }
+.rk { font-family: var(--f-display); font-weight: 800; background: var(--gold-bg); color: var(--gold); border: 2px solid var(--gold); border-radius: 8px; padding: 0 10px; margin-left: 8px; }
+.score { font-family: var(--f-display); font-weight: 800; font-size: 1.2rem; }
+.pick { display: grid; place-items: center; gap: 14px; padding-block: 30px; text-align: center; }
+.pick .letters { display: flex; gap: 12px; }
+.pick .letters button { width: 72px; height: 72px; font-size: 1.8rem; font-family: var(--f-display); font-weight: 800; border-radius: 16px; background: var(--panel); border: 2px solid var(--line); }
+.pick .letters button:hover { border-color: var(--accent); }
+ul.sy { margin: 0; padding-left: 1.1rem; }
+.term { border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 10px; padding: 10px 14px; background: var(--panel); display: flex; flex-direction: column; gap: 4px; }
+.term h4 { margin: 0; font-family: var(--f-display); font-size: 1rem; }
+.term .ex { background: var(--panel2); border-radius: 8px; padding: 8px 12px; font-size: .97rem; overflow-wrap: anywhere; }
+details.tm { border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; }
+details.tm > summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+details.tm[open] > summary { margin-bottom: 8px; }
+details.tm .term + .term { margin-top: 8px; }
+.prompt { display: flex; flex-direction: column; gap: 6px; }
+.prompt .q { font-weight: 700; }
+.prompt .tagline { font-family: var(--f-display); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.synopsis { font-size: 1rem; }
+@media (max-width: 480px) { .stem { font-size: 1.05rem; } .code { font-size: 1.3rem; } }
+@media (prefers-reduced-motion: no-preference) { .opt { transition: border-color .15s, background .15s; } }
+</style>
+<div class="wrap" id="app"></div>
+<script>
+var D = {"meta":{"date":"2026.11.07","unit":"Nation","lesson":"Lesson 7 + Bridge","key":"nation-l7-v2"},"warm":[{"id":"W1","cat":"Vocabulary in Context","stem":"Interrupting the debate every thirty seconds only ______ the tension in the room.","opts":["exacerbated","mitigated","exonerated","parleyed"],"ans":0,"why":[null,"Mitigated means lessened. It is the opposite of what the sentence needs.","Exonerated means cleared of blame. Nothing here is about blame.","Parleyed means negotiated. It is not something a person does to tension."],"explain":"<b>Exacerbate<\/b> comes from Latin <i>acerbus<\/i>, \"bitter.\" To exacerbate is to make a bad situation more bitter."},{"id":"W2","cat":"Vocabulary in Context","stem":"After she admitted the weakest point in her claim, it was still ______: she could defend it against any objection.","opts":["premeditated","reticent","tenable","adverse"],"ans":2,"why":["Premeditated means planned in advance. It describes an act, not a claim.","Reticent means unwilling to speak. It describes a person.",null,"Adverse means harmful or opposing. It does not describe a claim you can defend."],"explain":"<b>Tenable<\/b> comes from Latin <i>tenere<\/i>, \"to hold.\" A tenable claim is one you can hold on to."},{"id":"W3","cat":"Vocabulary: Etymology","stem":"Old English <i>trēow<\/i> meant \"promise, good faith.\" It is related to <i>true<\/i> and <i>trust<\/i>. Which word from this unit began as a promise?","opts":["stratagem","ordeal","adversary","truce"],"ans":3,"why":["Stratagem comes from Greek <i>stratēgos<\/i>, \"general.\"","Ordeal comes from Old English <i>ordēl<\/i>, \"judgment.\"","Adversary comes from Latin <i>adversus<\/i>, \"turned against.\"",null],"explain":"A <b>truce<\/b> began as a pledge. The word carries its own history: an agreement to stop fighting is a promise."},{"id":"W4","cat":"Writing: Claim-Evidence-Reasoning","stem":"Claim: Mau leads by risking himself. Evidence: he faces Cox in the duel. Which sentence is the <u>reasoning<\/u>?","opts":["Mau faces Cox in the duel in Chapter 14.","Mau is a brave leader.","By risking his own life, he spares both groups a larger battle, which shows that leadership is measured by what a person is willing to give up.","Many readers agree that Mau is brave."],"ans":2,"why":["That is evidence. It names what happens but does not say what it proves.","That is the claim again, not an explanation of it.",null,"That is an appeal to opinion. Reasoning explains how the evidence supports the claim."],"explain":"<b>Reasoning<\/b> is the \"so what\" link: it explains <i>how<\/i> the evidence supports the claim."},{"id":"W5","cat":"Writing: Concession","stem":"Which sentence is a <u>real<\/u> concession: it admits a fair point and still holds the claim?","opts":["Obviously, anyone who disagrees has not read the book.","Admittedly, the duel was dangerous, but it still spared more lives than a battle would have.","The duel was not dangerous at all.","Some say the duel was dangerous, but they are wrong."],"ans":1,"why":["That insults the other side. A real concession respects the fair point.",null,"That denies the point instead of conceding it.","It names the point and dismisses it without granting anything."],"explain":"A real concession <b>grants<\/b> something true about the other side, then explains why the claim still stands."},{"id":"W6","cat":"Theme Threads","stem":"Which of the unit's threads says that asking \"why\" is what moves people forward?","opts":["The Inherited Voice","Asking Why","Building the New","The Common Base"],"ans":1,"why":["The Inherited Voice is about the commands we carry from authorities, such as the Grandfathers.",null,"Building the New is about what a group keeps and what it changes.","The Common Base is about what stays universal under different cultures."],"explain":"<b>Asking Why<\/b>: questioning as the engine of progress. It started with Mau's refusal to stop asking why the gods allowed the wave."}],"reading":{"intro":"Books mostly closed. You have already read Chapter 15 and the Author's Note, so this is about what stayed with you and what it says about your own life. We will reread one short stretch together. For each moment: say what happened from memory, think about the big idea, then connect it to your life. Sharing the last part is your choice.","moments":[{"id":"R1","thread":"The Inherited Voice","cue":"the arrival, and the grandmother at last on the page","recall":"From memory, in one sentence: what happened when Daphne's grandmother finally appeared in person?","theme":"For the whole book Daphne carried her grandmother's voice in her head. How did the real person compare with the voice she carried? What does that suggest about the voices we carry?","life":"Name a voice you carry in your head: a parent, coach, teacher, or a rule you were taught. What does it say? Is it fair to the real person, or has it grown bigger or smaller in your mind?"},{"id":"R2","thread":"Whose Knowledge Counts","cue":"Daphne's argument about the island","recall":"From memory, in one sentence: what did Daphne argue for, and what did she point to as proof?","theme":"People nearly dismissed the Nation's knowledge. Why do people brush off knowledge that does not look like theirs? What makes knowledge count as real?","together":"Reread together (about 3 minutes): open your books to Daphne's argument scene in Chapter 15, and we will read a short stretch aloud together. Then, as a group, point to the claim, the evidence and the reasoning in her words.","life":"Think of something you know or can do (a language, a family recipe, a game, a skill) that others have treated as unimportant. Or: a time you dismissed what someone else knew. What would have changed if you had taken it seriously?"},{"id":"R3","thread":"The Common Base / Building the New","cue":"the last pages of Chapter 15","recall":"From memory, in one sentence: what did the Nation keep from its past, and what did it decide to change?","theme":"What should a group hold on to, and what should it be willing to change? Who gets to decide?","life":"Think of a group you belong to (family, team, class, club). Name one tradition worth keeping and one thing you would change. What would it cost to change it?"},{"id":"R4","thread":"Why this book exists","cue":"the Author's Note","recall":"From memory, in one sentence: what is one thing Pratchett tells you in the Author's Note that you did not expect?","theme":"Why might an author step out of the story and tell readers what is real and what is invented? What does that do for the reader?","life":"Think of a story from your own family or community that you would want told honestly. What must someone get right for it to be fair? What might they get wrong?"}]},"terms":[{"id":"sentence","name":"Complete sentence (independent clause)","say":"A group of words with a subject and a verb that makes sense on its own. It can end with a period.","ex":"<i>Mau was tired.<\/i> (Who? Mau. Doing what? Being tired. It stands alone.)"},{"id":"modifier","name":"Modifier","say":"A word or phrase that describes something else in the sentence. It must sit next to the thing it describes.","ex":"<i>Tired from the climb<\/i>, Mau sat down. (\"Tired from the climb\" describes Mau.)"},{"id":"participial","name":"Participial phrase","say":"A describing phrase that starts with a verb form ending in -ing or -ed (or a form like broken or torn). It often opens a sentence, followed by a comma.","ex":"<i>Standing on the beach<\/i>, Mau watched the water. <i>Exhausted by the wave<\/i>, he sat down."},{"id":"dangling","name":"Dangling modifier","say":"An opening phrase whose doer is missing. The first noun after the comma is not the one doing the action, so the sentence says something silly. Fix it by putting the real doer right after the comma. This also happens with \"To + verb\" openers.","ex":"<b>Wrong:<\/b> Walking to the cave, the sky turned dark. (The sky is not walking.)<br><b>Fixed:<\/b> Walking to the cave, Mau watched the sky turn dark.<br><b>Wrong:<\/b> To win the duel, a plan was needed. <b>Fixed:<\/b> To win the duel, Mau needed a plan."},{"id":"misplaced","name":"Misplaced modifier","say":"A describing word or phrase put too far from what it describes, so it seems to describe something else.","ex":"<b>Wrong:<\/b> Mau nearly ate the whole fish. (\"Nearly ate\" means he did not eat at all.)<br><b>Fixed:<\/b> Mau ate nearly the whole fish."},{"id":"runon","name":"Run-on (fused sentence)","say":"Two complete sentences jammed together with nothing between them.","ex":"<b>Wrong:<\/b> Mau was tired he kept walking.<br><b>Fixed:<\/b> Mau was tired, but he kept walking."},{"id":"splice","name":"Comma splice","say":"Two complete sentences joined by only a comma. A comma is too weak to hold two sentences together.","ex":"<b>Wrong:<\/b> Mau was tired, he kept walking.<br><b>Fixed:<\/b> Mau was tired; he kept walking."},{"id":"joining","name":"Joining word (coordinating conjunction)","say":"One of seven small words: for, and, nor, but, or, yet, so. A comma plus one of them can join two complete sentences.","ex":"Mau was tired<b>, but<\/b> he kept walking."},{"id":"subord","name":"Subordinating word (dependent clause)","say":"A word like because, although, when, if, after, or since turns a complete sentence into a part that cannot stand alone. Use a comma after it when that part comes first.","ex":"<b>Because<\/b> Daphne could not speak Mau's language, she drew pictures. (\"Because Daphne could not speak Mau's language\" cannot stand alone.)"},{"id":"convadv","name":"However, therefore (transition words)","say":"Words like however, therefore, and also are not strong enough to join two sentences with just a comma. Put a period or a semicolon before them.","ex":"<b>Wrong:<\/b> Mau was tired, however, he kept walking.<br><b>Fixed:<\/b> Mau was tired; however, he kept walking."},{"id":"semicolon","name":"Semicolon","say":"Joins two closely related complete sentences with no joining word. It is like a period that keeps the ideas together. Do not put it in front of a joining word like so or but; use a comma there.","ex":"Mau was tired; he kept walking."},{"id":"appositive","name":"Appositive","say":"A noun phrase that renames the noun next to it, set off by commas. It adds a detail without making a new sentence.","ex":"Mau, <i>the only survivor of his people<\/i>, had to decide."},{"id":"passive","name":"Passive voice","say":"The thing receiving the action is the subject, and the doer is hidden or pushed to the end. Active voice is usually shorter and clearer.","ex":"<b>Passive:<\/b> A plan was needed by Mau. <b>Active:<\/b> Mau needed a plan."},{"id":"concession","name":"Concession","say":"Admit a fair point from the other side, then explain why your claim still stands. A real concession grants something true; it does not insult the other side.","ex":"<i>Admittedly<\/i>, the duel was dangerous, but it still spared more lives than a battle would have."},{"id":"cer","name":"Claim-Evidence-Reasoning (CER)","say":"<b>Claim:<\/b> your answer. <b>Evidence:<\/b> proof from the text. <b>Reasoning:<\/b> an explanation of <i>how<\/i> the evidence proves the claim.","ex":"Claim: Mau leads by risking himself. Evidence: he faces Cox in the duel. Reasoning: by risking his life he spares both groups a larger battle, so leading means giving something up."},{"id":"workscited","name":"Works-Cited entry","say":"A short entry that tells readers exactly where a fact came from: the page title in quotation marks, the website name, the URL, and the date you visited it.","ex":"\"Marshall Islands Stick Charts.\" <i>Ocean Almanac Online<\/i>, www.example.org/stick-charts. Accessed 3 November 2026. (Made-up site, for practice.)"},{"id":"intext","name":"In-text source naming","say":"Naming your source inside the sentence so readers know whose knowledge it is. Use \"According to ...\" or a short note in parentheses with the website name.","ex":"According to <i>Ocean Almanac Online<\/i>, the charts were teaching tools, not maps to carry."},{"id":"circular","name":"Circular reasoning","say":"\"Proving\" a claim by repeating it in different words. It sounds like reasoning but explains nothing.","ex":"<b>Circular:<\/b> Daphne was right because she was right.<br><b>Reasoning:<\/b> The calipers show the ancestors knew measuring tools, so the island should not be treated as primitive."}],"diag":{"title":"The Chart You Cannot Carry","passage":["In the Marshall Islands, navigators once taught their apprentices with a tool that looks, to a stranger, like a craft project: a lattice of palm-rib sticks tied together with fiber, with small shells fastened at certain points. The shells mark islands. The sticks, some straight and some curved, show something that cannot be seen from a ship's deck at all: the way ocean swells bend and collide as they pass around land.","These charts were not carried on voyages. A student studied one on shore until the pattern was in his body, and then he read the same pattern in the motion of the boat beneath him, sometimes lying down in the hull to feel it. The chart was a lesson, not a map to unroll.","Outsiders who first saw the charts often misjudged them. A chart did not look like a map, so it was filed away as a curiosity or an ornament. The mistake was not a lack of intelligence. It was a lack of fit: the visitors expected knowledge to arrive in a familiar form, with fixed north, measured distances, and printed labels. A system that stored its accuracy in another form simply failed to register.","Later researchers who took the time to learn how the charts worked reached a different conclusion. The patterns they encoded were real, and the method that taught them was a careful one. Still, it would be too simple to say the old judgment was entirely foolish. A chart that exists only in one trained person's memory is harder to check, share, and correct than a printed one, and navigators often guarded who was taught. Knowledge can be sound and still be fragile. The lesson is not that every unfamiliar system is secretly brilliant. It is that a system should be tested on what it claims to do, not on how closely it resembles our own."],"mc":[{"id":"D1","cat":"Main Idea / Central Claim","stem":"Which statement best expresses the central claim of the passage?","opts":["Marshallese navigators kept their knowledge secret because outsiders could not be trusted.","Stick charts were more accurate than printed maps, so printed maps should be abandoned.","A system of knowledge should be tested on what it claims to do, not on whether it looks like our own.","Researchers who studied the charts proved that earlier visitors had been foolish."],"ans":2,"why":["The passage says navigators often guarded who was taught, but that is a detail, not the central claim, and it never says outsiders could not be trusted.","Extreme and unsupported. The passage never compares accuracy with printed maps.",null,"Contradicted: the passage says the mistake \"was not a lack of intelligence.\""],"explain":"The last two sentences state the claim. Wrong choices either blow a detail up into the main idea (choice 1) or use extreme language (choices 2 and 4)."},{"id":"D2","cat":"Inference","stem":"Based on the passage, why were the charts typically not carried on voyages?","opts":["Their purpose was to teach a pattern that the navigator would then sense in the sea itself.","They were too fragile to survive a journey by canoe.","The navigators did not trust the charts to be accurate.","Outsiders had forbidden the navigators from taking them."],"ans":0,"why":[null,"Nothing in the passage says the charts were fragile. An inference must rest on the text.","The passage says the patterns were real and the method careful. It does not suggest distrust.","The outsiders appear only as people who misjudged the charts. Nothing suggests they controlled the voyages."],"explain":"Paragraph 2 gives the clue: \"a lesson, not a map to unroll\" and the pattern was learned \"on shore until the pattern was in his body.\""},{"id":"D3","cat":"Vocabulary in Context","stem":"In paragraph 3, \"simply failed to register\" most nearly means:","opts":["was never written down","was never noticed as meaningful","was sold for a low price","was not formally enrolled"],"ans":1,"why":["The passage is about whether visitors recognized the knowledge, not about writing.",null,"Nothing is bought or sold in the sentence.","This is the \"signing up\" meaning of register. It does not fit a system of knowledge."],"explain":"Predict first: the visitors looked at the charts and did not see knowledge. \"Register\" here means to make an impression, to be noticed."},{"id":"D4","cat":"Evidence-Based Support","stem":"Which line from the passage best supports the idea that the visitors' mistake came from expectation, not from a lack of intelligence?","opts":["\"A student studied one on shore until the pattern was in his body.\"","\"The shells mark islands.\"","\"Later researchers who took the time to learn how the charts worked reached a different conclusion.\"","\"...the visitors expected knowledge to arrive in a familiar form, with fixed north, measured distances, and printed labels.\""],"ans":3,"why":["That describes how navigators learned. It says nothing about what the visitors expected.","A fact about the chart, with no link to the visitors' mistake.","That shows later researchers judged differently, but it does not say why the first visitors erred.",null],"explain":"Match the claim to the line that gives the <b>cause<\/b>: expectation. Only the last line says what the visitors expected."},{"id":"D5","cat":"Tone, Rhetoric & Structure","stem":"In the final paragraph, the author does which of the following?","opts":["Abandons the passage's main point to introduce a new topic.","Admits a fair limitation of the charts, then restates the larger point.","Attacks the researchers who studied the charts.","Lists other navigation tools used in the Pacific."],"ans":1,"why":["The final sentence returns to the main point.",null,"The researchers are described as taking the time to learn how the charts worked, which is a favorable portrayal.","No other tools appear anywhere in the paragraph."],"explain":"\"Still, it would be too simple...\" is a <b>concession<\/b>: the author grants a fair weakness (the charts are hard to check), then holds the claim."}]},"surgeon":{"rounds":[{"id":"fix1","name":"Round 1","items":["S1","S2","S3"]},{"id":"fix2","name":"Round 2","items":["S4","S5","S6"]}],"items":[{"id":"S1","terms":["participial","dangling","misplaced"],"skill":"Dangling modifier (participial)","spiral":"ATTWN spiral","flawed":"Standing on the beach after the wave, the island seemed silent and empty to Mau.","flaw":"Who is standing on the beach? The sentence says the island is.","opts":["Standing on the beach after the wave, Mau found the island silent and empty.","Standing on the beach after the wave, the island was silent and empty to Mau's eyes.","After the wave, standing on the beach, the island seemed silent and empty to Mau.","Standing on the beach after the wave, silent and empty, Mau saw the island."],"ans":0,"why":[null,"The opening phrase still needs a person standing. \"The island\" cannot stand on a beach, and adding \"to Mau's eyes\" does not change who is doing the standing.","Moving the phrase around does not fix it. \"Standing on the beach\" must attach to whoever is standing, and the next noun is still \"the island.\"","Now the opener correctly describes Mau, but \"silent and empty\" slides over to describe him as well. The modifier is misplaced: the island is silent and empty, not Mau."],"rule":"A modifier that opens a sentence attaches to the first noun after the comma. Ask who is doing the action, then put that person right after the comma.","talk":"Which wrong option tempted you, and what question would catch it next time?"},{"id":"S2","terms":["sentence","runon","splice","subord","convadv","semicolon"],"skill":"Run-on (fused sentence)","spiral":"Sentence boundaries","flawed":"Daphne could not speak Mau's language she drew pictures in the sand instead.","flaw":"Two complete sentences are fused together with nothing between them.","opts":["Daphne could not speak Mau's language, she drew pictures in the sand instead.","Daphne could not speak Mau's language, however, she drew pictures in the sand instead.","Daphne could not speak Mau's language; so she drew pictures in the sand instead.","Because Daphne could not speak Mau's language, she drew pictures in the sand instead."],"ans":3,"why":["A comma alone cannot join two complete sentences. This is a comma splice, and it is still the same error.","\"However\" is not a joining word, so two complete sentences are still held together by a comma alone.","A semicolon cannot sit in front of \"so.\" Use a semicolon alone, or a comma with \"so.\"",null],"rule":"Two complete sentences need a real joint: a period, a semicolon alone, a comma plus a joining word, or a subordinating word that makes one part depend on the other.","talk":"The fix turns one sentence into a dependent clause. What does that add that two short sentences would not?"},{"id":"S3","terms":["participial","appositive","splice"],"skill":"Sentence combining (appositive / participial)","spiral":"Lesson 3 skill","flawed":"Mau was alone on the island. He was the only survivor of his people. He had to decide what to do next.","flaw":"Three short sentences that share a subject. The ideas are related, but the writing does not show how.","opts":["Mau was alone on the island, and he was the only survivor of his people, and he had to decide what to do next.","Being alone on the island and the only survivor of his people, what to do next was Mau's decision.","Alone on the island, the only survivor of his people, Mau had to decide what to do next.","Mau was alone on the island, as the only survivor of his people, he had to decide what to do next."],"ans":2,"why":["Grammatical, but it only glues the sentences together with \"and.\" Combining should show how the ideas relate; the second idea is extra detail about Mau and fits inside the first.","The opening phrase describes Mau, but the subject of the main clause is \"what to do next.\" It dangles, and the sentence is harder to read.",null,"\"He had to decide what to do next\" is a complete sentence joined to the rest by only a comma: a comma splice."],"rule":"When short sentences share a subject, fold the detail into one sentence with a participial phrase or an appositive, so the main idea stands out.","talk":"Which version would you want to read aloud? Say why in one sentence."},{"id":"S4","terms":["concession"],"skill":"Concession (real vs. fake)","spiral":"Lesson 5 skill","flawed":"Some might say Daphne's plan was risky, but they are obviously foolish, so her plan was right.","flaw":"The concession does not concede anything. It insults the other side and stops reasoning.","opts":["Some might say Daphne's plan was risky, but critics never understand anything, so her plan was right.","Some might say Daphne's plan was risky, and it was: it could have failed. Still, it was worth the risk because doing nothing would have cost the island its independence.","Daphne's plan was not risky at all, so no one could disagree.","Some might say Daphne's plan was risky. Daphne's plan was right."],"ans":1,"why":["Still an insult. \"Never understand anything\" is extreme, and nothing here grants a fair point.",null,"This denies the opposing point instead of conceding it, and \"no one could disagree\" is extreme language.","It names the objection, then just repeats the claim. There is no reasoning that connects them."],"rule":"A real concession grants a fair point, then explains why the claim still stands. The reasoning does the work, not the insult.","talk":"What does the real concession give up, and what does it keep?"},{"id":"S5","terms":["dangling","passive"],"skill":"Dangling modifier (infinitive)","spiral":"ATTWN spiral","flawed":"To win the duel, a plan was needed.","flaw":"Who wants to win the duel? The sentence has no one in it who can.","opts":["To win the duel, a plan was what Mau needed.","To win the duel, it was needed that Mau have a plan.","Winning the duel, a plan was needed by Mau.","To win the duel, Mau needed a plan."],"ans":3,"why":["\"To win the duel\" still needs a person who wants to win. A plan cannot win a duel.","\"It\" cannot win a duel either. The dangler is still there, and the sentence is wordier.","The opener is now a \"winning\" phrase hooked to \"a plan.\" Still nothing can be doing the winning, and the passive \"by Mau\" pushes him to the end.",null],"rule":"An opening phrase needs a doer. Put the person who does the action directly after the comma, and make that person the subject.","talk":"Why is the correct version also shorter?"},{"id":"S6","terms":["cer","circular"],"skill":"CER: evidence without reasoning","spiral":"Unit target skill","flawed":"The cave stone showed calipers, a measuring tool the Nation was said never to have had. This shows Daphne was right.","flaw":"The evidence is there, but nothing says what the calipers prove or why that makes Daphne right.","opts":["The cave stone showed calipers, a measuring tool the Nation was said never to have had. This is a very important fact that shows Daphne was right.","The cave stone showed calipers, a measuring tool the Nation was said never to have had, which suggests the island's ancestors had advanced skills, so Daphne could argue that the island should not be treated as primitive.","The cave stone showed calipers, a measuring tool the Nation was said never to have had. No one could possibly disagree with Daphne.","Daphne was right because she was right, and the cave stone showed calipers, a measuring tool the Nation was said never to have had."],"ans":1,"why":["\"A very important fact\" is volume, not reasoning. It still never says what the calipers prove.",null,"\"No one could possibly disagree\" is extreme, and it swaps reasoning for pressure.","Circular: \"right because she was right\" proves nothing, and the stone is not connected to the claim."],"rule":"Reasoning is the link: say what the evidence <b>shows<\/b>, then say why that supports the claim.","talk":"Where exactly does the correct version put the reasoning? Point to the words."}]},"game":{"title":"Name That Structure","intro":"Eight quick looks at the grammar and writing skills from the whole unit. Pick, check, and read why. No timer and no speed points. Every wrong choice is explained.","items":[{"id":"G1","cat":"Name the structure","terms":["appositive","participial"],"stem":"In the sentence <i>Mau, the only survivor of his people, had to decide<\/i>, what is the part <u>the only survivor of his people<\/u>?","opts":["A participial phrase","An appositive","A dependent clause","A comma splice"],"ans":1,"why":["A participial phrase starts with an -ing or -ed verb form. This one starts with a noun.",null,"A dependent clause has its own subject and verb and starts with a word like because or although. This phrase has no verb.","A comma splice is an error, and nothing here is wrong."],"explain":"An <b>appositive<\/b> renames the noun beside it (Mau = the only survivor of his people) and is set off by commas."},{"id":"G2","cat":"Spot the dangler","terms":["dangling","participial"],"stem":"Which sentence has a <u>dangling modifier<\/u>?","opts":["Climbing the cliff, Mau felt the wind cut at his face.","While Mau climbed the cliff, the wind cut at his face.","Mau, climbing the cliff, felt the wind cut at his face.","Climbing the cliff, the wind cut at Mau's face."],"ans":3,"why":["\"Climbing\" describes Mau, the first noun after the comma. No dangler.","The opener has its own doer (Mau), so it cannot dangle.","The phrase sits right beside Mau, who is doing the climbing.",null],"explain":"In choice 4 the wind is not climbing. The opener has no doer, so it dangles. Ask: who is doing the action?"},{"id":"G3","cat":"Name the error","terms":["sentence","splice","runon","joining"],"stem":"<i>Daphne trusted Mau, he trusted her too.<\/i> What is wrong with this sentence?","opts":["A comma splice","A run-on (fused sentence)","A dangling modifier","Nothing is wrong"],"ans":0,"why":[null,"A run-on has NO punctuation between the two sentences. This one has a comma, which makes it a comma splice.","There is no opening phrase that needs a doer.","Two complete sentences are joined by only a comma, and a comma is too weak to do that."],"explain":"Two complete sentences joined by only a comma is a <b>comma splice<\/b>. Fix it with a period, a semicolon, or a comma plus a joining word like <i>and<\/i>."},{"id":"G4","cat":"Name the CER part","terms":["cer"],"stem":"Claim: The island's people were not primitive. Evidence: The cave stone showed calipers, a measuring tool the Nation was said never to have had. Which part is the <u>underlined<\/u> sentence? <u>This matters because people who knew about measuring tools had real science, which means the island was never primitive.<\/u>","opts":["Claim","Evidence","Reasoning","Concession"],"ans":2,"why":["A claim states the answer. This sentence explains how the evidence supports one.","Evidence names what is in the text, here the calipers. This sentence explains what that evidence means.",null,"A concession grants a fair point to the other side. Nothing here concedes anything."],"explain":"<b>Reasoning<\/b> is the \"so what\" link: it explains <i>how<\/i> the evidence supports the claim."},{"id":"G5","cat":"Fake or real?","terms":["concession"],"stem":"Which sentence is a <u>fake<\/u> concession: it sounds like one but does not really concede anything?","opts":["Admittedly, the duel was dangerous, but it spared more lives than a battle would have.","Sure, some people disagree, but they are just wrong.","It is true that the plan was risky; even so, doing nothing would have cost the island its independence.","Critics are right that Daphne had little proof at first, yet the cave stone changed that."],"ans":1,"why":["This grants a true point (the duel was dangerous) and then explains why the claim stands. Real.",null,"This grants a true point (the plan was risky) and then gives a reason. Real.","This grants a true point (little proof at first) and then answers it. Real."],"explain":"A real concession <b>grants<\/b> a fair point. \"They are just wrong\" grants nothing; it dismisses."},{"id":"G6","cat":"Check the citation","terms":["workscited"],"stem":"Which Works-Cited entry has <u>all four pieces<\/u>: title, website name, URL, and access date?","opts":["\"Marshall Islands Stick Charts.\" Ocean Almanac Online, www.example.org/stick-charts.","\"Marshall Islands Stick Charts.\" www.example.org/stick-charts. Accessed 3 November 2026.","\"Marshall Islands Stick Charts.\" Ocean Almanac Online, www.example.org/stick-charts. Accessed 3 November 2026.","Ocean Almanac Online. Accessed 3 November 2026."],"ans":2,"why":["Missing the access date.","Missing the website name.",null,"Missing the title and the URL."],"explain":"A Works-Cited entry has four pieces: <b>title, website name, URL, access date<\/b>. Readers use them to find the exact page again. (The site here is made up, for practice.)"},{"id":"G7","cat":"Name the connector","terms":["subord","joining","sentence"],"stem":"Which word can start a <u>dependent clause<\/u>, a part that cannot stand alone? <i>______ Mau was tired, he kept walking.<\/i>","opts":["Although","But","So","And"],"ans":0,"why":[null,"But is a joining word. With a comma it joins two complete sentences. It does not make one part dependent.","So is a joining word, like but. It joins two complete sentences instead of making one depend on the other.","And is a joining word, like but. It joins two complete sentences instead of making one depend on the other."],"explain":"<b>Although<\/b>, because, when, if and after are subordinating words. \"Although Mau was tired\" cannot stand alone, so it needs the main clause that follows."},{"id":"G8","cat":"Name your source","terms":["intext"],"stem":"Which sentence names its source the way we practiced?","opts":["Everyone knows the charts were teaching tools.","Studies show the charts were teaching tools.","The charts were teaching tools (source: the internet).","According to Ocean Almanac Online, the charts were teaching tools, not maps to carry."],"ans":3,"why":["\"Everyone knows\" names no source at all.","\"Studies\" is vague. Which studies? Readers cannot check it.","\"The internet\" is not a source. Name the specific site.",null],"explain":"Name the source in the sentence (\"According to ...\") or in a short note with the website name. That tells readers whose knowledge it is and where to check it."}]},"send":[{"id":"T1","prompt":"What makes a group of survivors a \"nation\": shared land and ancestry, or the choices they make to protect and rebuild? Use Chapter 15 in your answer."},{"id":"T2","prompt":"Whose knowledge counts? The stick-chart passage and Daphne's argument both involve knowledge that was dismissed because of its form. What test should replace \"does it look like ours\"?"},{"id":"T3","prompt":"Which skill from this unit will you actually use next semester, and in what exact situation?"}],"ballot":{"books":[{"n":1,"title":"Dry","author":"Neal and Jarrod Shusterman","genre":"Survival dystopia","length":"Longer","synopsis":"Alyssa Morrow's California suburb is running out of water. When the taps go dry, her neighbors turn from friendly to desperate within days. Alyssa, her younger brother, and a neighbor boy set out to find water, and along the way they meet others doing the same. The story asks what happens to a community when there is not enough for everyone, and which choices people can live with afterward.","through":"What do ordinary people owe their neighbors when resources run out?","heads":"Moderate violence and peril."},{"n":2,"title":"Do Androids Dream of Electric Sheep?","author":"Philip K. Dick","genre":"Dystopian science fiction","length":"Short","synopsis":"After a nuclear war, most of humanity has left Earth, and real animals have become precious status symbols. Rick Deckard, a bounty hunter in San Francisco, owns an electric sheep and dreams of a real one. To earn it, he must track down six escaped androids that look exactly like people. His main tool is a test that measures empathy, and the more he uses it, the less sure he becomes about what it proves.","through":"What makes someone a person, and who gets to decide?","heads":"Mature themes, including one sexual scene. Reads faster than it looks."},{"n":3,"title":"The Hitchhiker's Guide to the Galaxy","author":"Douglas Adams","genre":"Comic science fiction","length":"Short","synopsis":"On an ordinary Thursday, Arthur Dent is trying to stop a bulldozer from flattening his house. Then his friend Ford Prefect explains that he is really an alien, and that Earth is about to be demolished to make room for a space highway. The two hitch a ride off the planet and into a galaxy where bureaucracy is lethal, poetry is a weapon, and a handy electronic book called the Guide has the words DON'T PANIC on its cover. It is a fast, silly adventure with a sharp view of how people behave.","through":"How should people live when the universe does not seem to care?","heads":"Dry British humor, mild language."},{"n":4,"title":"Something Wicked This Way Comes","author":"Ray Bradbury","genre":"Horror / dark fantasy","length":"Medium","synopsis":"Will Halloway and Jim Nightshade are thirteen and best friends, born two minutes apart: Will just before midnight on October 30, Jim just after. One October night a carnival arrives in their Illinois town at three in the morning, with a carousel that seems to promise things people want most. The boys sneak out to watch it and realize the carnival is not what it seems. Only Will's father, a quiet man who feels old, may understand what the carnival wants.","through":"Why do people trade away what they have for what they think they want?","heads":"Scary atmosphere and peril. Dense, poetic language."},{"n":5,"title":"A Monster Calls","author":"Patrick Ness","genre":"Illustrated dark fantasy","length":"Short","synopsis":"Thirteen-year-old Conor has the same nightmare every night, and his mother is seriously ill. At seven minutes past midnight a monster the size of a tree walks up to his window. It is not the monster from the nightmare, and it says it has come to tell him three stories. When the stories are done, Conor must tell it a fourth: the truth he has been hiding. The book is illustrated with dark, moody drawings throughout.","through":"How do we face a truth we are afraid to say out loud?","heads":"A parent's serious illness; emotionally heavy."},{"n":6,"title":"It's Trevor Noah: Born a Crime (Young Readers)","author":"Trevor Noah","genre":"Contemporary memoir","length":"Medium","synopsis":"Trevor Noah was born in South Africa at a time when the law made his very existence a crime, because his mother was Black and his father was white. This young readers edition follows him from a childhood spent hidden indoors to a teenager who learns to talk his way into any group. His fearless, funny mother raises him with fierce faith and a stubborn refusal to be limited. The stories are funny, but they are also a clear-eyed look at how a society can sort people by rules they did not choose.","through":"How do identity and belonging change when a society sorts people by rules they did not choose?","heads":"Racism and some family violence, adapted for young readers."},{"n":7,"title":"I Must Betray You","author":"Ruta Sepetys","genre":"Historical thriller","length":"Medium","synopsis":"In 1989 Romania, seventeen-year-old Cristian Florescu is growing up in Bucharest under a dictator, in a country where neighbors, teachers and even friends might be informing on one another. Then the secret police come to him and demand that he spy on the people close to him. He has to decide how much of himself he can give away while keeping the people he loves safe. The country around him is close to breaking, and Cristian can feel it.","through":"What do you owe your family, your country and yourself when all three pull in different directions?","heads":"Political violence and intense scenes."},{"n":8,"title":"Code Talker","author":"Joseph Bruchac","genre":"Historical novel","length":"Medium","synopsis":"Ned Begay is a Navajo boy sent to a government boarding school where he is punished for speaking his own language. Years later, as a young man, he joins the Marines and is chosen for a secret mission in the Pacific. The military needs a code the enemy cannot break, and the answer is the language Ned was once punished for speaking. The story is told by Ned as an older man, looking back on both the war and the school.","through":"Can a culture that was suppressed become the thing that protects the people who suppressed it?","heads":"World War II combat violence."},{"n":9,"title":"The Invisible Man","author":"H. G. Wells","genre":"Classic science fiction / horror","length":"Short","synopsis":"One wintry day in February, a stranger arrives through the snow at an inn in the English village of Iping. His head is wrapped in bandages, his eyes are hidden behind dark glasses, and he demands to be left completely alone. The villagers are curious, and then suspicious, as odd things begin to happen around him. As the secret behind his appearance comes out, the question becomes what a person will do when no one can see him. This is a classic from 1897, so the language is older and denser than most modern books.","through":"What happens to a person's conscience when no one can see what they do?","heads":"Older language; some violence."},{"n":0,"title":"12 Angry Men","author":"Reginald Rose","genre":"Courtroom drama (play)","length":"Very short","synopsis":"A boy is on trial for murder, and twelve jurors file into a sweltering room to decide his fate. Almost everyone is ready to vote guilty and get home. One juror is not ready; he does not say the boy is innocent, only that the matter deserves more than a minute of talk. Over the next hours, the jurors argue, lose their tempers, and have to look at their own assumptions. It is a play, so it reads like a script, and it is short.","through":"What does it take for one person to question a whole group?","heads":"Dated setting; characters voice prejudice, and the play shows why it is wrong."}]}};
+var CODES = {"diag":"Q0hBUlQ=","fix1":"U0NBTFBFTA==","fix2":"U1VUVVJF","game":"U1RJVENI","vote":"QkFMTE9U"};
+var KEY = D.meta.key + '-student';
+function load() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function fresh() { return { who: null, tab: 'warm', warm: {}, warmLocked: {}, notes: {}, diag: {}, diagLocked: {}, fix: {}, game: {}, unlocked: {}, ranks: [], ballotDone: false, resetAsk: false }; }
+var S = (function () { var f = fresh(), o = load(); if (o && typeof o === 'object') { for (var k in o) f[k] = o[k]; } return f; })();
+var lockErr = '';
+
+var TABS = [
+  { id: 'warm', label: 'Warm-up' }, { id: 'read', label: 'Reading' }, { id: 'diag', label: 'Check', gate: 'diag' },
+  { id: 'fix1', label: 'Fix 1', gate: 'fix1' }, { id: 'fix2', label: 'Fix 2', gate: 'fix2' }, { id: 'game', label: 'Game', gate: 'game' }, { id: 'send', label: 'Talk' }, { id: 'vote', label: 'Vote', gate: 'vote' }, { id: 'terms', label: 'Terms' }
+];
+var CONF = { S: 'Sure', M: 'Maybe', G: 'Guess' };
+var ITEMS = {}; D.surgeon.items.forEach(function (it) { ITEMS[it.id] = it; });
+
+function $(s) { return document.querySelector(s); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function done(id) {
+  if (id === 'warm') return D.warm.every(function (w) { return S.warmLocked[w.id]; });
+  if (id === 'read') return false;
+  if (id === 'diag') return !!S.diagDone;
+  if (id === 'fix1' || id === 'fix2') { var r = D.surgeon.rounds.filter(function (x) { return x.id === id; })[0]; return r.items.every(function (k) { return S.fix[k] && S.fix[k].checked; }); }
+  if (id === 'game') return D.game.items.every(function (g) { return S.game[g.id] && S.game[g.id].checked; });
+  if (id === 'vote') return !!S.ballotDone;
+  return false;
+}
+
+/* ---------- shared pieces ---------- */
+function mcBlock(it, ns, sel, locked, reveal) {
+  var h = '<div class="cat">' + esc(it.cat) + '</div><div class="stem">' + it.stem + '</div><div class="opts">';
+  it.opts.forEach(function (o, i) {
+    var cls = 'opt', why = '';
+    if (reveal) {
+      if (i === it.ans) cls += ' right'; else if (i === sel) cls += ' wrong';
+      if (i !== it.ans && it.why[i]) why = '<span class="why">' + it.why[i] + '</span>';
+    }
+    h += '<button class="' + cls + '" data-a="pick" data-ns="' + ns + '" data-id="' + it.id + '" data-i="' + i + '" aria-pressed="' + (sel === i) + '"' + (locked ? ' disabled' : '') + '><span class="n">' + (i + 1) + '</span><span class="t">' + o + '</span>' + why + '</button>';
+  });
+  return h + '</div>';
+}
+function explainBox(it, ok) {
+  return '<div class="explain' + (ok ? '' : ' warn') + '"><b class="h">' + (ok ? 'Right. Here is why' : 'Not this time. Here is why') + '</b>' + it.explain + '</div>';
+}
+function copyBtn(t) { return '<button class="btn" data-a="copy" data-t="' + esc(t) + '">Copy code</button>'; }
+function codeBox(code, label) {
+  return '<div class="card"><h3>' + label + '</h3><p class="lede">Show this to your tutor, or read it aloud. It records your answers on the big screen.</p><div class="code" id="codeout">' + esc(code) + '</div><div class="row">' + copyBtn(code) + '<span id="copied" class="lede"></span></div></div>';
+}
+function lockCard(tab, msg) {
+  return '<div class="card lock"><h2>' + msg.title + '</h2><p class="lede">' + msg.body + '</p><label for="codein" class="lede">Code from your tutor</label><input id="codein" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="lerr"><div class="row"><button class="btn primary" data-a="unlock" data-tab="' + tab + '">Unlock</button></div><div class="err" id="lerr" role="alert">' + esc(lockErr) + '</div></div>';
+}
+
+/* ---------- steps ---------- */
+function vWarm() {
+  var n = D.warm.filter(function (w) { return S.warmLocked[w.id]; }).length;
+  var ok = D.warm.filter(function (w) { return S.warmLocked[w.id] && S.warm[w.id] === w.ans; }).length;
+  var h = '<div class="card"><h2>Warm-up</h2><p class="lede">Six quick looks back at the unit. Pick an answer, then check it. These are not logged; they are for you.</p>' + (n === D.warm.length ? '<p class="score">' + ok + ' of ' + D.warm.length + ' correct</p>' : '<p class="lede">' + n + ' of ' + D.warm.length + ' checked</p>') + '</div>';
+  D.warm.forEach(function (w) {
+    var lk = !!S.warmLocked[w.id], sel = S.warm[w.id];
+    h += '<div class="card">' + mcBlock(w, 'warm', sel, lk, lk);
+    if (lk) h += explainBox(w, sel === w.ans);
+    else h += '<div class="row"><button class="btn primary" data-a="lockwarm" data-id="' + w.id + '"' + (sel == null ? ' disabled' : '') + '>Check</button></div>';
+    h += '</div>';
+  });
+  return h;
+}
+function vRead() {
+  var R = D.reading;
+  var h = '<div class="card"><h2>Chapter 15 and the Author\'s Note</h2><p class="lede">' + esc(R.intro) + '</p></div>';
+  R.moments.forEach(function (m, ix) {
+    h += '<div class="card"><div class="cat">Moment ' + (ix + 1) + ' · ' + esc(m.thread) + '</div>';
+    h += '<div class="prompt"><span class="tagline">1 · Remember</span><p class="q">' + esc(m.recall) + '</p><textarea id="n_' + m.id + 'r" data-note="' + m.id + 'r" aria-label="Your recall for moment ' + (ix + 1) + '" style="min-height:60px">' + esc(S.notes[m.id + 'r'] || '') + '</textarea><details class="tm"><summary>Need a cue?</summary>Think about ' + esc(m.cue) + '. You do not need to reread.</details></div>';
+    if (m.together) h += '<div class="explain"><b class="h">Together</b>' + esc(m.together) + '</div>';
+    h += '<div class="prompt"><span class="tagline">2 · Think</span><p class="q">' + esc(m.theme) + '</p><textarea id="n_' + m.id + 't" data-note="' + m.id + 't" aria-label="Your thinking for moment ' + (ix + 1) + '">' + esc(S.notes[m.id + 't'] || '') + '</textarea></div>';
+    h += '<div class="prompt"><span class="tagline">3 · Your life</span><p class="q">' + esc(m.life) + '</p><textarea id="n_' + m.id + 'l" data-note="' + m.id + 'l" aria-label="Your life connection for moment ' + (ix + 1) + '">' + esc(S.notes[m.id + 'l'] || '') + '</textarea><p class="lede">Sharing this one is your choice.</p></div>';
+    h += '</div>';
+  });
+  return h;
+}
+function termCard(t) { return '<div class="term"><h4>' + t.name + '</h4><p>' + t.say + '</p><div class="ex">' + t.ex + '</div></div>'; }
+function termsFor(ids) { return ids.map(function (i) { return D.terms.filter(function (t) { return t.id === i; })[0]; }).filter(Boolean).map(termCard).join(''); }
+function vTerms() {
+  return '<div class="card"><h2>Terms</h2><p class="lede">A plain-words reminder for every grammar and writing term in this lesson. Each one has an example.</p></div><div class="card">' + D.terms.map(termCard).join('') + '</div>';
+}
+function vDiag() {
+  if (!S.unlocked.diag) return lockCard('diag', { title: 'The Check', body: 'A short reading passage, five questions, and then one written paragraph on your paper. Your tutor will say the code when it is time.' });
+  var d = D.diag, h = '<div class="card"><div class="cat">Reading passage</div><div class="passage"><h3>' + esc(d.title) + '</h3>';
+  d.passage.forEach(function (p) { h += '<p>' + esc(p) + '</p>'; });
+  h += '</div></div>';
+  var all = d.mc.every(function (q) { return S.diagLocked[q.id]; });
+  d.mc.forEach(function (q) {
+    var lk = !!S.diagLocked[q.id], sel = S.diag[q.id];
+    h += '<div class="card">' + mcBlock(q, 'diag', sel, lk, all);
+    if (all) h += explainBox(q, sel === q.ans);
+    else if (lk) h += '<p class="lede">Locked in. You will see the answer after all five.</p>';
+    else h += '<div class="row"><button class="btn primary" data-a="lockdiag" data-id="' + q.id + '"' + (sel == null ? ' disabled' : '') + '>Lock in</button></div>';
+    h += '</div>';
+  });
+  if (all) {
+    var ok = d.mc.filter(function (q) { return S.diag[q.id] === q.ans; }).length;
+    S.diagDone = true; save();
+    h += '<div class="card"><h3>Your score: ' + ok + ' of ' + d.mc.length + '</h3><p>Next, on your <b>paper sheet</b>: the written paragraph. Your tutor starts the clock.</p></div>';
+    h += codeBox(S.who + '-D-' + d.mc.map(function (q) { return (S.diag[q.id] + 1); }).join(''), 'Your code for the Check');
+  }
+  return h;
+}
+function vFix(rid) {
+  var r = D.surgeon.rounds.filter(function (x) { return x.id === rid; })[0];
+  if (!S.unlocked[rid]) return lockCard(rid, { title: 'Sentence Surgeon · ' + r.name, body: 'Paper first. On your sheet, mark the flaw in each sentence and write your own repair. When your tutor says the code, you will check your thinking here.' });
+  var h = '<div class="card"><h2>Sentence Surgeon · ' + r.name + '</h2><p class="lede">For each sentence: choose the repair that matches yours (or the best one), tell us how sure you are, then check. Read why every wrong choice fails.</p></div>';
+  r.items.forEach(function (k, ix) {
+    var it = ITEMS[k], st = S.fix[k] || {}, ck = !!st.checked;
+    h += '<div class="card"><div class="cat">Sentence ' + (D.surgeon.items.indexOf(it) + 1) + ' · ' + esc(it.skill) + '</div><div class="sent">' + esc(it.flawed) + '</div><div class="opts">';
+    it.opts.forEach(function (o, i) {
+      var cls = 'opt', why = '';
+      if (ck) { if (i === it.ans) cls += ' right'; else if (i === st.pick) cls += ' wrong'; if (i !== it.ans && it.why[i]) why = '<span class="why">' + it.why[i] + '</span>'; }
+      h += '<button class="' + cls + '" data-a="fixpick" data-id="' + k + '" data-i="' + i + '" aria-pressed="' + (st.pick === i) + '"' + (ck ? ' disabled' : '') + '><span class="n">' + (i + 1) + '</span><span class="t">' + esc(o) + '</span>' + why + '</button>';
+    });
+    h += '</div>';
+    h += '<details class="tm"' + (ck ? ' open' : '') + '><summary>Terms in this sentence</summary>' + termsFor(it.terms) + '</details>';
+    if (!ck) {
+      h += '<div class="conf"><span class="lab">How sure are you?</span>';
+      ['S', 'M', 'G'].forEach(function (c) { h += '<button class="pill" data-a="fixconf" data-id="' + k + '" data-c="' + c + '" aria-pressed="' + (st.conf === c) + '">' + CONF[c] + '</button>'; });
+      h += '</div><div class="row"><button class="btn primary" data-a="fixcheck" data-id="' + k + '"' + (st.pick == null || !st.conf ? ' disabled' : '') + '>Check</button></div>';
+    } else {
+      var ok = st.pick === it.ans;
+      h += '<div class="ba"><div class="lab">Before</div><div class="sent before">' + esc(it.flawed) + '</div><div class="lab">After</div><div class="sent after">' + esc(it.opts[it.ans]) + '</div></div>';
+      h += '<div class="explain' + (ok ? '' : ' warn') + '"><b class="h">The flaw</b>' + esc(it.flaw) + '<br><br><b class="h">The rule</b>' + it.rule + '</div>';
+      if (!ok && st.conf === 'S') h += '<div class="explain warn"><b class="h">Worth remembering</b>You were sure, and it was a different answer. Mistakes you were sure about are the ones people fix best when they look at why.</div>';
+      h += '<p class="lede">Talk about it: ' + esc(it.talk) + '</p>';
+    }
+    h += '</div>';
+  });
+  if (done(rid)) {
+    var code = S.who + '-' + (rid === 'fix1' ? 'S1' : 'S2') + '-' + r.items.map(function (k) { return (S.fix[k].pick + 1) + S.fix[k].conf; }).join('-');
+    h += codeBox(code, 'Your code for ' + r.name);
+  }
+  return h;
+}
+function vGame() {
+  var G = D.game;
+  if (!S.unlocked.game) return lockCard('game', { title: G.title, body: 'A quick review game of the unit\'s grammar and writing skills. Your tutor will say the code when it is time.' });
+  var h = '<div class="card"><h2>' + esc(G.title) + '</h2><p class="lede">' + esc(G.intro) + '</p></div>';
+  G.items.forEach(function (it, ix) {
+    var st = S.game[it.id] || {}, ck = !!st.checked;
+    h += '<div class="card"><div class="cat">' + (ix + 1) + ' of ' + G.items.length + ' · ' + esc(it.cat) + '</div><div class="stem">' + it.stem + '</div><div class="opts">';
+    it.opts.forEach(function (o, i) {
+      var cls = 'opt', why = '';
+      if (ck) { if (i === it.ans) cls += ' right'; else if (i === st.pick) cls += ' wrong'; if (i !== it.ans && it.why[i]) why = '<span class="why">' + it.why[i] + '</span>'; }
+      h += '<button class="' + cls + '" data-a="gamepick" data-id="' + it.id + '" data-i="' + i + '" aria-pressed="' + (st.pick === i) + '"' + (ck ? ' disabled' : '') + '><span class="n">' + (i + 1) + '</span><span class="t">' + esc(o) + '</span>' + why + '</button>';
+    });
+    h += '</div>';
+    h += '<details class="tm"' + (ck ? ' open' : '') + '><summary>Terms for this item</summary>' + termsFor(it.terms) + '</details>';
+    if (!ck) h += '<div class="row"><button class="btn primary" data-a="gamecheck" data-id="' + it.id + '"' + (st.pick == null ? ' disabled' : '') + '>Check</button></div>';
+    else h += explainBox(it, st.pick === it.ans);
+    h += '</div>';
+  });
+  if (done('game')) {
+    var ok = G.items.filter(function (it) { return S.game[it.id].pick === it.ans; }).length;
+    h += '<div class="card"><h3>Your score: ' + ok + ' of ' + G.items.length + '</h3><p class="lede">The ones you missed are the ones to talk about.</p></div>';
+    h += codeBox(S.who + '-G-' + G.items.map(function (it) { return S.game[it.id].pick + 1; }).join(''), 'Your code for the game');
+  }
+  return h;
+}
+function vSend() {
+  var h = '<div class="card"><h2>Talk</h2><p class="lede">Your tutor leads this one out loud. Nothing to type. Keep your book nearby.</p></div>';
+  D.send.forEach(function (t, i) { h += '<div class="card"><div class="cat">Question ' + (i + 1) + '</div><div class="stem">' + esc(t.prompt) + '</div></div>'; });
+  return h;
+}
+function vVote() {
+  if (!S.unlocked.vote) return lockCard('vote', { title: 'Choose the next book', body: 'Ten titles. Read the cards, then choose your top three. Your tutor will say the code when it is time.' });
+  var h = '<div class="card"><h2>Choose the next book</h2><p class="lede">Pick your <b>top three</b>. First choice counts most. Think about the story, the challenge, and the question each book asks.</p><p class="lede">Your picks: ' + (S.ranks.some(function (x) { return x != null; }) ? S.ranks.map(function (n, i) { return n == null ? null : (i + 1) + '. ' + esc(bk(n).title); }).filter(Boolean).join(' · ') : 'none yet') + '</p></div>';
+  D.ballot.books.forEach(function (b) {
+    var r = S.ranks.indexOf(b.n);
+    h += '<div class="card book"><h3>' + esc(b.title) + (r >= 0 ? '<span class="rk">#' + (r + 1) + '</span>' : '') + '</h3><div class="meta">' + esc(b.author) + ' · ' + esc(b.genre) + ' · ' + esc(b.length) + ' read</div><p class="synopsis">' + esc(b.synopsis) + '</p><p><b>The question it opens:</b> ' + esc(b.through) + '</p><p class="lede"><b>Heads-up:</b> ' + esc(b.heads) + '</p>';
+    if (!S.ballotDone) {
+      h += '<div class="row">';
+      [1, 2, 3].forEach(function (k) { h += '<button class="pill" data-a="rank" data-n="' + b.n + '" data-k="' + k + '" aria-pressed="' + (r === k - 1) + '">' + (k === 1 ? '1st' : k === 2 ? '2nd' : '3rd') + '</button>'; });
+      h += '<button class="linkbtn" data-a="unrank" data-n="' + b.n + '">Clear</button></div>';
+    }
+    h += '</div>';
+  });
+  if (!S.ballotDone) h += '<div class="card"><div class="row"><button class="btn primary" data-a="lockvote"' + (S.ranks.length === 3 && S.ranks.every(function (x) { return x != null; }) ? '' : ' disabled') + '>Lock my ballot</button></div></div>';
+  else h += codeBox(S.who + '-V-' + S.ranks.join('-'), 'Your ballot code');
+  return h;
+}
+function bk(n) { return D.ballot.books.filter(function (b) { return b.n === n; })[0]; }
+
+/* ---------- shell ---------- */
+function render() {
+  var app = $('#app');
+  if (!S.who) {
+    app.innerHTML = '<main><div class="card pick"><div class="brand">Nation · Lesson 7</div><h2>Which letter are you?</h2><p class="lede">Your tutor will tell you. You only pick this once.</p><div class="letters">' + ['A', 'B', 'C', 'D'].map(function (l) { return '<button data-a="who" data-l="' + l + '" aria-label="Student ' + l + '">' + l + '</button>'; }).join('') + '</div></div></main>';
+    return;
+  }
+  var tabs = TABS.map(function (t) {
+    var lk = t.gate && !S.unlocked[t.gate];
+    return '<button class="tab' + (lk ? ' locked' : '') + '" data-a="tab" data-t="' + t.id + '" aria-current="' + (S.tab === t.id) + '">' + t.label + (lk ? '' : (done(t.id) ? '<span class="tick" aria-label="done">&#10003;</span>' : '')) + '</button>';
+  }).join('');
+  var body = S.tab === 'warm' ? vWarm() : S.tab === 'read' ? vRead() : S.tab === 'diag' ? vDiag() : S.tab === 'fix1' ? vFix('fix1') : S.tab === 'fix2' ? vFix('fix2') : S.tab === 'game' ? vGame() : S.tab === 'send' ? vSend() : S.tab === 'terms' ? vTerms() : vVote();
+  var foot = '<div class="card"><div class="row"><button class="linkbtn" data-a="reset">' + (S.resetAsk ? 'Tap again to erase this device and start over' : 'Start over on this device') + '</button></div></div>';
+  app.innerHTML = '<div class="bar"><div class="head"><span class="brand">Nation · Lesson 7</span><span class="who">Student <b>' + S.who + '</b><button class="linkbtn" data-a="chwho">change</button></span></div><nav class="tabs" aria-label="Steps">' + tabs + '</nav></div><main>' + body + foot + '</main>';
+}
+
+document.addEventListener('input', function (e) {
+  var id = e.target && e.target.getAttribute && e.target.getAttribute('data-note');
+  if (id) { S.notes[id] = e.target.value; save(); }
+});
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-a]'); if (!el) return;
+  var a = el.getAttribute('data-a'), id = el.getAttribute('data-id');
+  if (a === 'who') { S.who = el.getAttribute('data-l'); }
+  else if (a === 'chwho') { S.who = null; }
+  else if (a === 'tab') { S.tab = el.getAttribute('data-t'); lockErr = ''; S.resetAsk = false; }
+  else if (a === 'pick') {
+    var ns = el.getAttribute('data-ns'), i = +el.getAttribute('data-i');
+    if (ns === 'warm') { if (!S.warmLocked[id]) S.warm[id] = i; } else if (ns === 'diag') { if (!S.diagLocked[id]) S.diag[id] = i; }
+  }
+  else if (a === 'lockwarm') { S.warmLocked[id] = true; }
+  else if (a === 'lockdiag') { S.diagLocked[id] = true; }
+  else if (a === 'fixpick') { S.fix[id] = S.fix[id] || {}; if (!S.fix[id].checked) S.fix[id].pick = +el.getAttribute('data-i'); }
+  else if (a === 'fixconf') { S.fix[id] = S.fix[id] || {}; if (!S.fix[id].checked) S.fix[id].conf = el.getAttribute('data-c'); }
+  else if (a === 'fixcheck') { S.fix[id].checked = true; }
+  else if (a === 'gamepick') { S.game[id] = S.game[id] || {}; if (!S.game[id].checked) S.game[id].pick = +el.getAttribute('data-i'); }
+  else if (a === 'gamecheck') { S.game[id].checked = true; }
+  else if (a === 'unlock') {
+    var t = el.getAttribute('data-tab'), v = ($('#codein').value || '').replace(/\s+/g, '').toUpperCase();
+    if (v && btoa(v) === CODES[t]) { S.unlocked[t] = true; lockErr = ''; } else { lockErr = 'That code is not right. Check the spelling with your tutor.'; }
+  }
+  else if (a === 'rank') {
+    var n = +el.getAttribute('data-n'), k = +el.getAttribute('data-k') - 1;
+    var arr = [S.ranks[0], S.ranks[1], S.ranks[2]]; var old = arr.indexOf(n); if (old >= 0) arr[old] = undefined; arr[k] = n;
+    S.ranks = arr.map(function (x) { return x === undefined ? null : x; });
+    while (S.ranks.length && S.ranks[S.ranks.length - 1] === null) S.ranks.pop();
+  }
+  else if (a === 'unrank') { var nn = +el.getAttribute('data-n'); var j = S.ranks.indexOf(nn); if (j >= 0) S.ranks[j] = null; while (S.ranks.length && S.ranks[S.ranks.length - 1] === null) S.ranks.pop(); }
+  else if (a === 'lockvote') { if (S.ranks.length === 3 && S.ranks.indexOf(null) < 0) S.ballotDone = true; }
+  else if (a === 'copy') {
+    var t2 = el.getAttribute('data-t'), msg = function (m) { var c = $('#copied'); if (c) c.textContent = m; };
+    try { navigator.clipboard.writeText(t2).then(function () { msg('Copied.'); }, function () { sel(); }); } catch (err) { sel(); }
+    function sel() { var r = document.createRange(); r.selectNodeContents($('#codeout')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); msg('Selected. Press Ctrl+C.'); }
+    return;
+  }
+  else if (a === 'reset') { if (S.resetAsk) { S = fresh(); lockErr = ''; } else { S.resetAsk = true; } }
+  save(); render();
+});
+render();
+</script>
