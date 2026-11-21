@@ -1,0 +1,346 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Hitchhiker's Guide Lesson 2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one single-column working page for a phone or a laptop. A sticky strip names the student and holds the 10 numbered steps, which match the tutor's board and the paper packet. Steps that use the screen show a SCREEN banner; the others tell the student to put the screen down. */
+:root {
+  --bg: #F3F5FA; --panel: #FFFFFF; --panel2: #E8ECF5; --ink: #14213D; --muted: #55627E; --line: #C9D1E3;
+  --accent: #2457D6; --accent-ink: #FFFFFF; --good: #17804A; --good-bg: #DDF3E6; --bad: #B83232; --bad-bg: #F9E0E0;
+  --gold: #8F6200; --gold-bg: #FAEFCB; --paper: #7A3E00; --paper-bg: #FDEBD3;
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif; --f-body: 'Atkinson Hyperlegible', 'Segoe UI', Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #0D1526; --panel: #15213B; --panel2: #1D2C4D; --ink: #E8EEFA; --muted: #9DAAC6; --line: #2C3C60;
+    --accent: #88AAFF; --accent-ink: #0D1526; --good: #5BD593; --good-bg: #12392B; --bad: #FF8E8E; --bad-bg: #40191F;
+    --gold: #F2C35B; --gold-bg: #3A2D0E; --paper: #FFC88A; --paper-bg: #3D2A12; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --bg: #0D1526; --panel: #15213B; --panel2: #1D2C4D; --ink: #E8EEFA; --muted: #9DAAC6; --line: #2C3C60;
+  --accent: #88AAFF; --accent-ink: #0D1526; --good: #5BD593; --good-bg: #12392B; --bad: #FF8E8E; --bad-bg: #40191F;
+  --gold: #F2C35B; --gold-bg: #3A2D0E; --paper: #FFC88A; --paper-bg: #3D2A12; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 17px; line-height: 1.5;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 48px; overflow-x: hidden; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.wrap { max-width: 760px; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.2; text-wrap: balance; margin: 0; }
+h2 { font-size: 1.45rem; } h3 { font-size: 1.1rem; } p { margin: 0; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 10px 8px; border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.brand { font-family: var(--f-display); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: .78rem; color: var(--muted); }
+.who { margin-left: auto; display: flex; align-items: center; gap: 8px; font-size: .9rem; }
+.who b { font-family: var(--f-display); background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 1px 12px; }
+.linkbtn { background: none; border: 0; color: var(--accent); text-decoration: underline; padding: 4px; font-size: .9rem; }
+.tabs { display: flex; gap: 6px; overflow-x: auto; padding-block: 8px 2px; scrollbar-width: thin; }
+.tab { flex: 0 0 auto; background: var(--panel); border: 2px solid var(--line); border-radius: 999px; padding: 5px 13px; font-size: .9rem; white-space: nowrap; }
+.tab.scr { border-color: var(--accent); }
+.tab.off { border-style: dashed; color: var(--muted); }
+.tab[aria-current="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 700; border-style: solid; }
+.tab .tick { color: var(--good); font-weight: 800; margin-left: 4px; }
+.tab[aria-current="true"] .tick { color: var(--accent-ink); }
+main { display: flex; flex-direction: column; gap: 16px; padding-top: 18px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.lede { color: var(--muted); }
+.banner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border-radius: 12px; padding: 10px 14px; border: 2px solid var(--accent); background: var(--panel2); }
+.banner .n { font-family: var(--f-display); font-weight: 800; letter-spacing: .08em; font-size: .78rem; }
+.banner b { font-family: var(--f-display); font-size: 1.1rem; }
+.banner .tags { margin-left: auto; font-family: var(--f-display); font-weight: 800; letter-spacing: .1em; font-size: .78rem; background: var(--accent); color: var(--accent-ink); border-radius: 6px; padding: 2px 10px; }
+.banner.off { border-color: var(--paper); background: var(--paper-bg); }
+.banner.off .tags { background: var(--paper); color: var(--paper-bg); }
+.down { border: 3px solid var(--paper); background: var(--paper-bg); border-radius: 12px; padding: 14px 16px; font-size: 1.1rem; }
+.down b { font-family: var(--f-display); letter-spacing: .06em; }
+.cat { font-family: var(--f-display); font-weight: 700; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.stem { font-family: var(--f-display); font-weight: 700; font-size: 1.12rem; line-height: 1.35; }
+.opts { display: grid; gap: 8px; }
+.opt { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; text-align: left; background: var(--panel); border: 2px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 100%; min-width: 0; }
+.opt .n { font-family: var(--f-display); font-weight: 800; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--panel2); }
+.opt .t { padding-top: 3px; overflow-wrap: anywhere; }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--panel2); }
+.opt[aria-pressed="true"] .n { background: var(--accent); color: var(--accent-ink); }
+.opt.right { border-color: var(--good); background: var(--good-bg); }
+.opt.right .n { background: var(--good); color: var(--bg); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-bg); }
+.opt.wrong .n { background: var(--bad); color: var(--bg); }
+.opt .why { grid-column: 2; font-size: .95rem; color: var(--muted); }
+.opt.wrong .why, .opt.right .why { color: var(--ink); }
+.opt:disabled { cursor: default; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.rate { display: flex; flex-direction: column; gap: 8px; padding-block: 6px; border-top: 1px dashed var(--line); }
+.sure { display: flex; flex-direction: column; gap: 6px; }
+.btn { background: var(--panel); border: 2px solid var(--line); border-radius: 10px; padding: 9px 16px; font-weight: 700; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.explain { border-left: 6px solid var(--good); background: var(--good-bg); border-radius: 8px; padding: 12px 14px; }
+.explain.warn { border-color: var(--gold); background: var(--gold-bg); }
+.explain b.h { font-family: var(--f-display); letter-spacing: .06em; text-transform: uppercase; font-size: .72rem; display: block; margin-bottom: 2px; }
+.pts { font-family: var(--f-display); font-weight: 800; }
+.code { display: flex; gap: 12px; flex-wrap: wrap; }
+.code span { font-family: var(--f-display); font-weight: 800; font-size: 2.6rem; line-height: 1; min-width: 64px; text-align: center; background: var(--panel2); border: 2px solid var(--accent); border-radius: 12px; padding: 12px 14px; }
+.tell { border: 3px solid var(--accent); }
+.lock { display: flex; flex-direction: column; gap: 12px; }
+.lock input { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .1em; padding: 10px 14px; border: 2px solid var(--line); border-radius: 10px; background: var(--panel); width: min(100%, 320px); }
+.err { color: var(--bad); font-weight: 700; min-height: 1.4em; }
+.passage { display: flex; flex-direction: column; gap: 12px; max-width: 65ch; }
+.rk { font-family: var(--f-display); font-weight: 800; background: var(--gold-bg); color: var(--gold); border: 2px solid var(--gold); border-radius: 8px; padding: 0 10px; margin-left: 8px; }
+.score { font-family: var(--f-display); font-weight: 800; font-size: 1.2rem; }
+.pick { display: grid; place-items: center; gap: 14px; padding-block: 30px; text-align: center; }
+.pick .letters { display: flex; gap: 12px; }
+.pick .letters button { width: 72px; height: 72px; font-size: 1.8rem; font-family: var(--f-display); font-weight: 800; border-radius: 16px; background: var(--panel); border: 2px solid var(--line); }
+.pick .letters button:hover { border-color: var(--accent); }
+.term { border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 10px; padding: 10px 14px; background: var(--panel); display: flex; flex-direction: column; gap: 4px; }
+.term h4 { margin: 0; font-family: var(--f-display); font-size: 1rem; }
+.term .ex { background: var(--panel2); border-radius: 8px; padding: 8px 12px; font-size: .97rem; overflow-wrap: anywhere; }
+.rule { border: 1px solid var(--line); border-left: 6px solid var(--gold); border-radius: 10px; padding: 12px 14px; background: var(--panel); display: flex; flex-direction: column; gap: 6px; }
+.rule h4 { margin: 0; font-family: var(--f-display); font-size: 1.05rem; }
+.rule .id { font-family: var(--f-display); font-weight: 800; background: var(--gold-bg); color: var(--gold); border-radius: 6px; padding: 0 8px; margin-right: 8px; }
+.pair { display: grid; gap: 6px; }
+.pair .w, .pair .r { border-radius: 8px; padding: 8px 12px; overflow-wrap: anywhere; }
+.pair .w { background: var(--bad-bg); } .pair .r { background: var(--good-bg); }
+.pair .lab { font-family: var(--f-display); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; display: block; color: var(--muted); }
+details.tm { border: 1px dashed var(--line); border-radius: 10px; padding: 8px 12px; }
+details.tm > summary { cursor: pointer; font-weight: 700; color: var(--accent); }
+details.tm[open] > summary { margin-bottom: 8px; }
+details.tm > * + * { margin-top: 8px; }
+.wc { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; background: var(--panel); }
+.wc h4 { margin: 0; font-family: var(--f-display); font-size: 1.15rem; }
+.wc .p { color: var(--muted); font-size: .92rem; }
+.rules-box { background: var(--panel2); border-radius: 10px; padding: 10px 14px; }
+.book { display: flex; flex-direction: column; gap: 8px; }
+.book .meta { color: var(--muted); font-size: .9rem; }
+.synopsis { font-size: 1rem; }
+@media (max-width: 480px) { .stem { font-size: 1.05rem; } .code span { font-size: 2rem; min-width: 52px; } }
+@media (prefers-reduced-motion: no-preference) { .opt { transition: border-color .15s, background .15s; } }
+</style>
+</head><body><div class="wrap" id="app"></div>
+<script>
+var D = {"meta":{"date":"2026.11.21","key":"hh-l2-v2","brand":"Hitchhiker's Guide · Lesson 2"},"scoring":{"correct":2,"streakAt":3,"streakBonus":1,"roundWin":2},"steps":[{"n":1,"id":"s1","kind":"talk","name":"Homework check","label":"1. Homework check","sub":"spoken, nothing to type","short":"Homework check","tags":["TALK"],"min":7,"students":"Reading Logs and the AI task out. Books closed.","what":"Your tutor initials your Reading Log for Chapters 3 to 10, then asks three questions out loud, including what the AI said about dramatic irony. Nothing to type."},{"n":2,"id":"s2","kind":"starter","name":"Starter","label":"2. Starter","sub":"where are you now?","short":"Starter","tags":["TALK","SCREEN"],"min":5,"students":"Spoken first (screens down), then screens up on tab 2.","what":"First your tutor asks you to rate three new devices with your fingers (no screen). Then your tutor says the unlock word, and you answer two questions from Lesson 1 on this tab and read four numbers aloud. Not graded."},{"n":3,"id":"s3","kind":"devices","name":"Devices","label":"3. Devices","sub":"learn three, write them in your Field Guide, sort all six","short":"Devices","tags":["TALK","PAPER"],"min":10,"students":"Listen while your tutor teaches three new literary devices (screens down). Then write each one in your Field Guide in your own words. This tab holds the same cards to look back at later.","what":"Three more tools Douglas Adams uses to be funny, each with a name, a meaning in plain words and an example from Chapters 3 to 10. After each is taught, you write all three in your Field Guide (device 4 on page 1, devices 5 and 6 on page 2). Then we sort all six devices you know."},{"n":4,"id":"s4","kind":"spot","name":"Reread and spot","label":"4. Reread and spot","sub":"Chapter 5, then six moments on paper","short":"Reread and spot","tags":["TALK","PAPER"],"min":16,"students":"Book open to Chapter 5. Paper sheet 1, front: Paper · 4. Reread and spot.","what":"We reread the Guide's description of the Vogons in Chapter 5 together. Then, on the front of paper sheet 1, you name the device in six short moments and write privately in the box at the bottom. Nobody has to share what they wrote."},{"n":5,"id":"s5","kind":"contest","contest":"W","name":"Vocabulary contest","label":"5. Vocabulary contest","sub":"nine words, three rounds","short":"Vocabulary contest","tags":["SCREEN"],"min":12,"students":"Screens up. Student Page, tab 5.","what":"Study nine word cards, then play three rounds against each other. Your tutor will say the unlock word when it is time."},{"n":6,"id":"s6","kind":"rules","name":"Sentence rules","label":"6. Sentence rules","sub":"learn two rules, write them in your Field Guide","short":"Sentence rules","tags":["TALK","PAPER"],"min":8,"students":"Listen while your tutor teaches two sentence rules (screens down). Then write each rule in your own words in your Field Guide, page 3, in the first two empty rows. This tab holds the same cards to look back at later.","what":"Two rules about where a sentence starts and stops: fragments, and run-ons and comma splices (with three ways to fix them). After both are taught, you write each rule in your own words in your Field Guide."},{"n":7,"id":"s7","kind":"contest","contest":"P","name":"Sentence contest and fix-it","label":"7. Sentence contest and fix-it","sub":"three rounds on screen, then five sentences on paper","short":"Sentence contest and fix-it","tags":["SCREEN","PAPER"],"min":14,"students":"Screens up for the contest on tab 7. Then screens down for the fix-it on the back of paper sheet 1.","what":"Three rounds against each other: fragments, run-ons, then a mix with the comma rules. Then screens down and fix five sentences on the back of paper sheet 1. Your tutor will say the unlock word when it is time."},{"n":8,"id":"s8","kind":"read","name":"Read ahead: Chapter 11","label":"8. Read ahead: Chapter 11","sub":"read aloud and talk","short":"Read ahead: Chapter 11","tags":["TALK"],"min":12,"students":"Book open to Chapter 11.","what":"We read the start of Chapter 11 together, out loud, and meet a new character. Then we stop and talk. Have your book open. Nothing to type or write."},{"n":9,"id":"s9","kind":"writing","name":"Writing lab","label":"9. Writing lab","sub":"learn from a model, then write ONE paragraph","short":"Writing lab","tags":["PAPER","TALK"],"min":14,"students":"Paper sheet 1, back (the model), then paper sheet 3, front (your paragraph).","what":"You study a model paragraph on the back of paper sheet 1 and label its parts. Then you write ONE paragraph of your own on the front of paper sheet 3. Everything you need is on the sheets."},{"n":10,"id":"s10","kind":"wrap","name":"Wrap and homework","label":"10. Wrap and homework","sub":"what to do before next lesson","short":"Wrap and homework","tags":["TALK"],"min":5,"students":"Paper sheets and Field Guide out.","what":"Homework for next lesson: read Chapters 11 to 19 and fill in your Reading Log (paper sheet 2) while you read. Do the short AI task on the back of paper sheet 3. Then three small jobs in your Field Guide."}],"devices":[{"id":"SI","name":"Situational irony","say":"What happens is the opposite of what was expected, or the opposite of what something was meant to do. The gap between the plan and the result is the joke (or the sting).","ex":"Chapter 3: Arthur spends the whole morning in the mud saving his house from a bypass. Then the Vogons announce that the entire Earth must be demolished to make way for a hyperspace express route: a bypass in space. His fight was won and it did not matter at all. This is the match you noticed in our Chapter 3 read-aloud.","not":"Not just bad luck. Rain on your picnic is unlucky. A fire station burning down is ironic, because a fire station is the one building meant to stop fires. And not dramatic irony: there the reader knows something a character does not; here the result surprises everyone."},{"id":"SA","name":"Satire","say":"Using humor (exaggeration, irony, mockery) to make fun of something real in the world, such as a government, an office, a job or a habit people have, so that we see what is foolish or wrong about it. Satire always has a target.","ex":"Chapter 5: the Guide says the Vogons would not lift a finger to save their own grandmothers from the Ravenous Bugblatter Beast of Traal without orders signed in triplicate, sent in, sent back, queried, lost, found and lost again. The Vogons are invented. The target is real: offices that care more about forms than about people, like Mr. Prosser's council in Chapter 1.","not":"Not just a joke. A joke can be funny about nothing. Satire is aimed at something real outside the book. Always ask: who or what is being made fun of?"},{"id":"HY","name":"Hyperbole","say":"Exaggerating on purpose, far beyond the truth, to make a point or make us laugh. Nobody is meant to believe it word for word.","ex":"Chapter 7: the Guide ranks the worst poetry in the Universe. Vogon poetry is only the THIRD worst. The second worst belongs to the Azgoths of Kria: during a reading by their poet Grunthos the Flatulent, four members of the audience died and another survived only by gnawing off one of his own legs. (In your edition the very worst is by Paula Nancy Millstone Jennings of Greenbridge, Essex, an Earth poet.) No poem can do that. The exaggeration is the joke, and the Vogons are only the comparison.","not":"The opposite of understatement (Lesson 1), which makes something huge sound small. Hyperbole makes something bigger than it is. Careful: \"Space is big. Really big.\" (Chapter 8) sounds like hyperbole, but space really is that big, so it is not an exaggeration."}],"symbolNote":"New Reading Log symbol: satire (S). It marks a moment where the book is making fun of something real, such as an office, a job or a kind of person. Write (S) in your log beside the chapter and scene, and name the target. Keep using irony (≠) too.","starter":{"title":"Starter: where are you now?","scale":["I have never heard of it","I have heard it, but I cannot explain it","I can explain it","I could teach it to someone"],"rate":[{"id":"R1","name":"Situational irony"},{"id":"R2","name":"Satire"},{"id":"R3","name":"Hyperbole"}],"p2Head":"Two questions from Lesson 1: a device and a word","p2Note":"Pick an answer, say how sure you are, then press Check. You will see right away why the answer is right.","confScale":["Guessing","Not sure","Pretty sure","Certain"],"recall":[{"id":"T1","cat":"From Lesson 1 (a device)","rule":"dramatic irony","stem":"In a film, the audience knows that the hero's best friend is secretly working for the villain. The hero keeps telling the friend every plan. Which device is this?","opts":["Dramatic irony","Verbal irony","Understatement","A surprise twist"],"ans":0,"why":[null,"Verbal irony is saying the opposite of what you mean. The hero means every word. The device here is about what the audience KNOWS.","Understatement makes something huge sound small. Nothing is being described as smaller than it is.","In a twist, the audience is fooled too. Here the audience already knows the secret, so they are ahead of the hero."],"explain":"<b>Dramatic irony</b>: the reader or audience knows something important that a character does not. We know about the friend; the hero does not."},{"id":"T2","cat":"From Lesson 1 (a word)","rule":"nonchalant","stem":"Maya heard the coach shout her name across the field. She shrugged and kept stretching. Maya was...","opts":["nonchalant.","oblivious.","imminent.","eccentric."],"ans":0,"why":[null,"Close, but Maya HEARD the coach. Oblivious means not noticing at all. She noticed and stayed calm.","Imminent means about to happen soon. It describes events, not a person's attitude.","Eccentric means odd in a harmless way. A shrug is calm, not odd."],"explain":"<b>Nonchalant</b> means calm and casual, as if not worried (French <i>non</i> + <i>chaloir</i>, \"not to matter\"). The look-alike from Lesson 1: oblivious people have not noticed; nonchalant people have noticed and stay cool."}],"codeNote":"Read these four numbers to your tutor, in order: your answer and your sureness for question 1, then your answer and your sureness for question 2."},"fgNote":"Field Guide homework (about five minutes): your own example for ONE of today's three devices (page 1 or 2), your own example sentence for the fragment rule or the run-on rule (page 3), and TWO word roots from today's word cards (page 4).","vocab":[{"word":"callous","pos":"adjective","pron":"KAL-us","ety":"Latin callosus (\"thick-skinned\"), from callum (\"hard skin\"). A callus is hardened skin; a callous person has hardened feelings.","def":"Showing no concern for other people's pain or trouble.","syn":"heartless, unfeeling, cold","ant":"caring, sympathetic, compassionate","textEx":"Chapter 5: the Guide describes the Vogons as callous. They demolish a whole planet and feel nothing about it.","usageEx":"It was callous to laugh while his friend searched for her lost dog."},{"word":"officious","pos":"adjective","pron":"uh-FISH-us","ety":"Latin officiosus (\"dutiful, eager to serve\"), from officium (\"duty, service\"). Too much duty turns into bossiness. Look-alike: official (properly approved or in charge).","def":"Too eager to give orders or enforce rules, especially small ones; bossy about procedure.","syn":"bossy, meddlesome, self-important","ant":"easygoing, relaxed, unassuming","textEx":"Chapter 5: the Guide describes the Vogons as officious: they love orders, forms and procedure more than people.","usageEx":"An officious clerk made us fill out the form again because we used blue ink instead of black."},{"word":"improbable","pos":"adjective","pron":"im-PROB-uh-bul","ety":"Latin in- (\"not\") + probabilis (\"likely, provable\"), from probare (\"to test, to prove\"). The same root is in probe and probably.","def":"Unlikely to happen or to be true.","syn":"unlikely, doubtful, far-fetched","ant":"likely, probable, expected","textEx":"Chapter 8: the Guide gives enormous odds against being picked up in space so quickly, yet Ford and Arthur are rescued, by a ship that runs on an Infinite Improbability Drive.","usageEx":"It seemed improbable that the smallest team in the league would win, but they did."},{"word":"ceremonial","pos":"adjective","pron":"ser-uh-MOH-nee-ul","ety":"Latin caerimonia (\"a sacred rite\"). A ceremony is about the ritual and the show, not the practical work.","def":"Done or held for show or ritual, without real power or practical use.","syn":"symbolic, formal, ritual","ant":"practical, functional, working","textEx":"Chapter 4: the narrator explains that the President of the Galaxy is there not to use power but to draw attention away from it. Zaphod's job is mostly for show.","usageEx":"The golden key to the city is ceremonial; it does not open any doors."},{"word":"futile","pos":"adjective","pron":"FYOO-tul","ety":"Latin futilis (\"leaky, worthless\"), first used for a pot that would not hold water. A futile effort leaks away to nothing.","def":"Having no chance of success; pointless.","syn":"useless, hopeless, vain","ant":"effective, useful, fruitful","textEx":"Chapter 7: Arthur praises the Vogon captain's poem to save their lives. It is futile: the captain throws them out of the airlock anyway.","usageEx":"Bailing the boat with a teacup was futile; the water came in faster than he could scoop."},{"word":"arbitrary","pos":"adjective","pron":"AR-bih-trair-ee","ety":"Latin arbiter (\"judge\"). An arbitrary choice was once left to one judge's will. Now it means a choice made by whim or chance, with no reason anyone can check. A word about who decides.","def":"Based on chance or someone's whim, not on a reason or a rule.","syn":"random, unreasoned, whimsical","ant":"reasoned, justified, principled","textEx":"The word is not in the chapters, but the thing is: the Galaxy decides the Earth is in the way of a road, and nobody on Earth is ever given a reason they could check or argue with.","usageEx":"The rule seemed arbitrary: hats were banned on Tuesdays only."},{"word":"disdain","pos":"noun (also a verb)","pron":"dis-DAYN","ety":"Old French desdeignier, from Latin dis- (\"not\") + dignari (\"to think worthy\"). To disdain someone is to treat them as not worthy. The same root is in dignity.","def":"The feeling that someone or something is beneath you and not worth your respect.","syn":"contempt, scorn","ant":"respect, admiration, esteem","textEx":"Chapter 3: the way the Vogons speak to the people of Earth. A whole planet is not worth more to them than one announcement.","usageEx":"The champion looked at the beginner's racket with open disdain."},{"word":"magnitude","pos":"noun","pron":"MAG-nih-tood","ety":"Latin magnitudo, from magnus (\"great\"). The same root is in magnify and magnificent.","def":"Great size or importance; how big something is.","syn":"size, scale, enormity","ant":"smallness, insignificance, triviality","textEx":"Chapter 8: the Guide tries to describe the magnitude of space: \"Space is big. Really big.\"","usageEx":"We did not grasp the magnitude of the flood until we saw the photos from above."},{"word":"pompous","pos":"adjective","pron":"POMP-us","ety":"Latin pompa (\"procession, grand display\"), from Greek pompe. A pompous person acts as if they were their own parade.","def":"Acting grand and self-important, as if you deserve more respect than you do.","syn":"self-important, pretentious, puffed up","ant":"modest, humble, unassuming","textEx":"Chapter 7: the Vogon captain reads his own poem aloud to two prisoners and expects them to praise it.","usageEx":"The pompous speaker spent ten minutes listing his own awards before he said anything useful."}],"wItems":[{"id":"W1","cat":"Meaning","rule":"callous","stem":"A <b>callous</b> person...","opts":["shows no concern for other people's pain.","gives too many orders about small rules.","acts grand and self-important.","stays calm and casual under pressure."],"ans":0,"why":[null,"That is <i>officious</i>. An officious person is bossy about rules; a callous person does not care who gets hurt.","That is <i>pompous</i>. A pompous person wants admiration; a callous person simply does not care about others' pain.","From Lesson 1: that is <i>nonchalant</i>. Calm is not the same as cruel. Callous means no concern for others' pain."],"explain":"<b>Callous</b> comes from Latin <i>callum</i>, \"hard skin\" (think of a callus). A callous person has hardened feelings: no concern for other people's pain. The Guide uses it for the Vogons."},{"id":"W2","cat":"Meaning","rule":"officious","stem":"Which person is <b>officious</b>?","opts":["A referee who has the league's approval to run the game.","A hall monitor who stops you to check your pass three times on one trip to the water fountain.","A student who laughs when a classmate trips and gets hurt.","A singer who tells the crowd before every song that she is the greatest ever."],"ans":1,"why":["A look-alike: that referee is <i>official</i>, meaning properly approved. Officious means too eager to enforce small rules.",null,"That is <i>callous</i>: no concern for someone's pain. It has nothing to do with rules.","That is <i>pompous</i>: self-important. Officious is about bossing people with rules."],"explain":"<b>Officious</b> is from Latin <i>officium</i>, \"duty.\" Too much duty becomes bossiness: three pass checks on one trip. Do not mix it up with <i>official</i> (properly approved). A referee can be official without being officious."},{"id":"W3","cat":"Meaning","rule":"improbable","stem":"Something <b>improbable</b> is...","opts":["about to happen very soon.","pointless, with no chance of working.","unlikely to happen or to be true.","too small or unimportant to matter."],"ans":2,"why":["From Lesson 1: that is <i>imminent</i>. Imminent is about WHEN; improbable is about how LIKELY.","That is <i>futile</i>. A futile effort cannot work; an improbable event is unlikely but can still happen, like the rescue in Chapter 8.",null,"From Lesson 1: that is <i>insignificant</i>. Something improbable can be huge; it is just unlikely."],"explain":"<b>Improbable</b> is Latin <i>in-</i> (\"not\") + <i>probabilis</i> (\"likely\"). Unlikely, but not impossible: Ford and Arthur's rescue is wildly improbable, and it happens."},{"id":"W4","cat":"In context","rule":"futile","stem":"Shouting at the vending machine to give back his dollar was ______: the machine kept the money.","opts":["futile","improbable","ceremonial","parley"],"ans":0,"why":[null,"Improbable means unlikely to happen. The shouting definitely happened; the problem is that it could not work.","Ceremonial means done for show or ritual. Nobody shouts at a vending machine as a ceremony.","From the Nation unit: a <i>parley</i> is a discussion between enemies to settle terms. It is a noun, and the sentence needs an adjective."],"explain":"<b>Futile</b> means having no chance of success (Latin <i>futilis</i>, \"leaky\"). The clue is \"the machine kept the money\": the effort could never work."},{"id":"W5","cat":"In context","rule":"pompous","stem":"The new club president gave a forty-minute speech about his own greatness and asked everyone to call him \"Your Excellency.\" The members found him ______.","opts":["callous","oblivious","futile","pompous"],"ans":3,"why":["Callous means no concern for others' pain. Nobody is hurt here; he is just puffed up.","From Lesson 1: oblivious means not noticing what is happening. The clue is about how grand he acts, not what he notices.","Futile describes efforts that cannot work, not people's personalities.",null],"explain":"<b>Pompous</b> is from Latin <i>pompa</i>, \"a grand procession.\" A forty-minute speech about yourself and a title like \"Your Excellency\" is acting as if you were your own parade."},{"id":"W6","cat":"In context","rule":"ceremonial","stem":"The mayor cut a ribbon with giant golden scissors, but the cutting was only ______: the bridge had been open for a week.","opts":["ceremonial","officious","callous","arbitrary"],"ans":0,"why":[null,"Officious means bossy about rules. Nobody is enforcing anything here.","Callous means not caring about others' pain. A ribbon-cutting hurts nobody.","Arbitrary means based on whim, without a reason. The clue says the cutting was for show, since the bridge was already open."],"explain":"<b>Ceremonial</b> means done for show or ritual, without practical effect (Latin <i>caerimonia</i>, \"a sacred rite\"). The bridge was already open, so the cutting changed nothing. The narrator says the President of the Galaxy has the same kind of job."},{"id":"W7","cat":"Root","rule":"arbitrary","stem":"<b>Arbitrary</b> comes from Latin <i>arbiter</i>, \"judge\": a choice left to one person's will. Which decision is arbitrary?","opts":["The class votes and picks the date most students can make.","A teacher picks the test date by closing her eyes and pointing at the calendar.","The school sets the date because the state test is the week after.","The coach cancels practice because lightning is in the forecast."],"ans":1,"why":["A vote gives a reason everyone can see. That is the opposite of arbitrary.",null,"There is a clear reason: the state test. Arbitrary means no reason at all.","Lightning is a good reason. Arbitrary decisions have none."],"explain":"<b>Arbitrary</b>: based on chance or whim, not a reason. Pointing at the calendar with your eyes closed is pure chance. The Earth's demolition feels the same: nobody on Earth was given a reason they could check."},{"id":"W8","cat":"Root","rule":"disdain","stem":"<b>Disdain</b> joins Latin <i>dis-</i> (\"not\") and <i>dignari</i> (\"to think worthy\"). Which moment shows disdain?","opts":["A chef tastes a student's soup and asks for the recipe.","A chef forgets to taste the soup because he is busy.","A famous chef tastes a student's soup, wrinkles his nose and pushes it away without a word.","A chef calmly tastes the soup while the kitchen fire alarm rings."],"ans":2,"why":["Asking for the recipe shows respect, the opposite of disdain.","From Lesson 1: that is closer to <i>oblivious</i>. Disdain means he noticed and judged it not worthy.",null,"From Lesson 1: that is <i>nonchalant</i>: calm, not scornful."],"explain":"<b>Disdain</b> is treating someone or something as not worthy (the root <i>dignari</i> is also in dignity). The wrinkled nose and the push away, without a word, say \"beneath me.\""},{"id":"W9","cat":"From before","rule":"magnitude","stem":"Nobody understood the ______ of the earthquake until they saw that three towns had been flattened.","opts":["magnitude","remorse","truce","illusion"],"ans":0,"why":[null,"From the Nation unit: <i>remorse</i> is deep regret for something you did wrong. An earthquake cannot feel regret.","From the Nation unit: a <i>truce</i> is an agreement to stop fighting for a while. It has nothing to do with size.","From Lesson 1: an <i>illusion</i> only seems real. Three flattened towns are very real."],"explain":"<b>Magnitude</b> means great size or importance (Latin <i>magnus</i>, \"great\"). Three flattened towns show how big the earthquake was. Earthquakes are even measured in magnitudes."}],"wRounds":[{"name":"Round 1 · Meanings","ids":["W1","W2","W3"]},{"name":"Round 2 · In context","ids":["W4","W5","W6"]},{"name":"Round 3 · Roots and words from before","ids":["W7","W8","W9"]}],"pItems":[{"id":"P1","cat":"Fragments","rule":"fragments","stem":"Which one is a complete sentence?","opts":["Arthur in his dressing gown in the mud.","Lying in front of the bulldozer all morning.","Because the plans were on display.","Arthur lay in front of the bulldozer all morning."],"ans":3,"why":["There is no main verb: what did Arthur DO? A subject alone is a fragment (the fragment rule).","There is no subject: who was lying there? A fragment (the fragment rule).","It has a subject and a verb, but 'because' leaves the thought unfinished: because the plans were on display, what happened? A fragment (the fragment rule).",null],"explain":"<b>The fragment rule.</b> A complete sentence needs a subject (Arthur), a main verb (lay) and a finished thought. Each wrong option is missing one of the three."},{"id":"P2","cat":"Fragments","rule":"fragments","stem":"Which choice fixes this correctly? <i>Ford ordered six pints. Before the world ended.</i>","opts":["Ford ordered six pints before the world ended.","Ford ordered six pints, before. The world ended.","Ford ordered six pints. Before, the world ended.","Ford, ordered six pints before the world ended."],"ans":0,"why":[null,"This makes things worse: 'Ford ordered six pints, before.' is now an odd, broken sentence, and the meaning has changed.","Adding a comma after 'Before' changes the meaning and the first sentence still sits alone. The fix for a fragment is to join it to its sentence (the fragment rule).","The fragment is joined, but the new comma separates the subject 'Ford' from its verb 'ordered'. Never put a comma between a subject and its verb."],"explain":"<b>The fragment rule.</b> 'Before the world ended' cannot stand alone (before the world ended, what?). Join it to the sentence it belongs to. No comma is needed when the 'before' part comes at the END."},{"id":"P3","cat":"Fragments","rule":"fragments + opener comma","stem":"Which sentence is punctuated correctly?","opts":["When the ships appeared over the city, everyone looked up.","When the ships appeared over the city.","When the ships appeared over the city everyone looked up.","When the ships appeared. Over the city everyone looked up."],"ans":0,"why":[null,"A fragment: 'When' leaves the thought unfinished. When the ships appeared, what happened? (the fragment rule)","The sentence is complete, but the comma after the opener is missing (the opener-comma rule).","The period cuts the opener off and leaves a fragment, 'When the ships appeared.' (the fragment rule)"],"explain":"<b>The fragment and opener-comma rules.</b> 'When the ships appeared over the city' is an opener that cannot stand alone. Attach it to the main sentence with a comma where the opener ends."},{"id":"P4","cat":"Run-ons and splices","rule":"run-ons and comma splices","stem":"Which sentence is punctuated correctly?","opts":["The Vogon read his poem, and Arthur tried not to groan.","The Vogon read his poem, Arthur tried not to groan.","The Vogon read his poem Arthur tried not to groan.","The Vogon read his poem and, Arthur tried not to groan."],"ans":0,"why":[null,"A comma splice: two complete sentences joined by only a comma (the run-on and comma splice rule). Add a joining word after the comma.","A run-on: two complete sentences with nothing between them (the run-on and comma splice rule).","The comma is on the wrong side of 'and'. It goes BEFORE the joining word (the joining-word comma rule)."],"explain":"<b>Run-ons and comma splices, fix 2.</b> 'The Vogon read his poem' and 'Arthur tried not to groan' are both complete sentences. A comma plus the joining word 'and' holds them together."},{"id":"P5","cat":"Run-ons and splices","rule":"run-ons and comma splices","stem":"Which choice fixes this comma splice? <i>The fish was tiny, it changed everything.</i>","opts":["The fish was tiny it changed everything.","The fish was tiny, but it changed everything.","The fish was tiny, it, changed everything.","The fish was tiny, so, it changed everything."],"ans":1,"why":["Taking the comma out turns a comma splice into a run-on. Still two sentences with nothing holding them together (the run-on and comma splice rule).",null,"An extra comma splits the subject 'it' from its verb. And the comma splice is still there.","'So' is a joining word, but the comma after it does not belong, and 'so' gives the wrong meaning: the fish did not change everything BECAUSE it was tiny."],"explain":"<b>Run-ons and comma splices, fix 2.</b> A comma plus 'but' joins the two complete sentences and shows the contrast: tiny, but world-changing."},{"id":"P6","cat":"Run-ons and splices","rule":"run-ons and comma splices","stem":"Which one is NOT a run-on or a comma splice?","opts":["Arthur wanted his house back he wanted his planet back even more.","Arthur wanted his house back, he wanted his planet back even more.","Arthur wanted his house back. He wanted his planet back even more.","Arthur wanted his house back, even more, he wanted his planet back."],"ans":2,"why":["A run-on: two complete sentences with nothing between them (the run-on and comma splice rule).","A comma splice: only a comma between two complete sentences (the run-on and comma splice rule).",null,"Still a comma splice: 'even more' does not join anything, so a comma alone sits between two complete sentences (the run-on and comma splice rule)."],"explain":"<b>Run-ons and comma splices, fix 1.</b> The simplest fix is a period: two complete sentences, each with its own capital and full stop."},{"id":"P7","cat":"Mixed","rule":"run-ons + opener comma","stem":"Which sentence is punctuated correctly?","opts":["Although the poem was terrible, Arthur praised its imagery.","Although the poem was terrible Arthur praised its imagery.","The poem was terrible, Arthur praised its imagery.","Although the poem was terrible. Arthur praised its imagery."],"ans":0,"why":[null,"The comma after the opener 'Although the poem was terrible' is missing (the opener-comma rule).","A comma splice: two complete sentences joined by only a comma (the run-on and comma splice rule).","The period leaves 'Although the poem was terrible.' as a fragment (the fragment rule)."],"explain":"<b>Run-ons and comma splices, fix 3, with the opener-comma rule.</b> 'Although' turns the first sentence into an opener, and the comma goes where the opener ends."},{"id":"P8","cat":"Mixed","rule":"list commas + fragments","stem":"Which sentence is punctuated correctly?","opts":["The Guide covers towels Babel fish, and Vogon poetry.","Towels, Babel fish, and Vogon poetry.","The Guide covers, towels, Babel fish, and Vogon poetry.","The Guide covers towels, Babel fish, and Vogon poetry."],"ans":3,"why":["There is no comma between 'towels' and 'Babel fish'. In a list, every item except the last needs a comma after it (the list-comma rule).","The list commas are right, but there is no subject or verb: a fragment (the fragment rule).","The comma after 'covers' splits the verb from the first thing it covers. Commas go between the items, not before the first one.",null],"explain":"<b>The list-comma and fragment rules.</b> A complete sentence (The Guide covers...) with a list of three things, a comma after each item except the last."},{"id":"P9","cat":"Mixed","rule":"run-ons + joining-word comma","stem":"Which sentence is punctuated correctly?","opts":["Ford and Arthur floated in space, and then a ship appeared.","Ford and Arthur floated in space then a ship appeared.","Ford and Arthur floated in space, then a ship appeared.","Ford and Arthur floated in space and, then a ship appeared."],"ans":0,"why":[null,"A run-on: two complete sentences with nothing between them (the run-on and comma splice rule).","The trap: 'then' is NOT one of the seven joining words (for, and, nor, but, or, yet, so). So this is still a comma splice (the run-on and comma splice rule).","The comma is after 'and' instead of before it (the joining-word comma rule)."],"explain":"<b>The run-on and joining-word comma rules.</b> 'And' is a joining word, so a comma before it can join two complete sentences. 'Then' alone cannot do that job."}],"pRounds":[{"name":"Round 1 · Fragments","ids":["P1","P2","P3"]},{"name":"Round 2 · Run-ons and comma splices","ids":["P4","P5","P6"]},{"name":"Round 3 · Mixed, with commas","ids":["P7","P8","P9"]}],"rules":[{"id":"S1","name":"Complete sentences and fragments","group":"Sentences","say":"A complete sentence has a subject, a main verb and a finished thought. A fragment is a piece of a sentence punctuated as if it were whole: it is missing a subject, a main verb or a finished thought. Fix it by joining it to the sentence next to it, or by adding what is missing.","right":"Arthur ran back to his house because the bulldozer was coming.","wrong":"Arthur ran back to his house. Because the bulldozer was coming."},{"id":"S2","name":"Run-ons and comma splices","group":"Sentences","say":"A run-on jams two complete sentences together with nothing between them. A comma splice joins them with only a comma. Three fixes: (1) a period, making two sentences; (2) a comma plus a joining word (the joining-word comma from Lesson 1); (3) a word like because, when or although at the front of one sentence, which makes it an opener (the opener comma from Lesson 1).","right":"The poem was terrible. Arthur said it was wonderful.   |   The poem was terrible, but Arthur said it was wonderful.   |   Although the poem was terrible, Arthur said it was wonderful.","wrong":"The poem was terrible, Arthur said it was wonderful."},{"id":"C1","name":"Commas in a list","group":"Commas","say":"In a list of three or more things, put a comma after each item except the last. 'And' goes before the last item. A list of only two things needs no comma.","right":"Ford packed a towel, a notebook, and a bag of peanuts.","wrong":"Ford packed a towel a notebook and a bag of peanuts."},{"id":"C2","name":"Comma after an opener","group":"Commas","say":"If a sentence starts with a word or group of words that sets the scene before the main sentence begins (an opener), put a comma where the opener ends.","right":"Before the bulldozer arrived, Arthur was asleep.","wrong":"Before the bulldozer arrived Arthur was asleep."},{"id":"C3","name":"Comma before a joining word","group":"Commas","say":"When one of the joining words (for, and, nor, but, or, yet, so) connects two complete sentences, put a comma before it. If what comes after it is not a complete sentence, no comma.","right":"Arthur was angry, but he stayed in the mud.","wrong":"Arthur was angry but he stayed in the mud."}],"ruleTerms":["sentence","fragment","runon","splice","joining","opener"],"txt":{"devicesTitle":"Three more literary devices","rulesTitle":"Two sentence rules","rulesGroup":"Sentences","contestRulesLabel":"Rule cards (fragments, run-ons and comma splices, and the three comma rules)","vocabLede":"Five words are tied to Chapters 3 to 10 and four are words that turn up on the SAT and ACT. Read the cards first. Every question is about one of these words. Round 3 also brings back words from Lesson 1 and the Nation unit."},"terms":[{"id":"sentence","name":"Complete sentence","say":"A group of words with a subject, a main verb and a finished thought. It can stand alone.","ex":"Arthur lay down in the mud."},{"id":"fragment","name":"Fragment","say":"A piece of a sentence punctuated as if it were whole. It is missing a subject, a main verb or a finished thought.","ex":"<b>Because the bulldozer was coming.</b> (Finished thought missing: because what?)"},{"id":"runon","name":"Run-on","say":"Two complete sentences jammed together with no punctuation between them.","ex":"<b>Ford ran Arthur followed.</b>"},{"id":"splice","name":"Comma splice","say":"Two complete sentences joined by only a comma. A comma alone is not strong enough to hold two sentences together.","ex":"<b>Ford ran, Arthur followed.</b>"},{"id":"subject","name":"Subject","say":"The who or what the sentence is about.","ex":"<b>Arthur</b> lay down in the mud. (Who lay down? Arthur.)"},{"id":"verb","name":"Main verb","say":"The word that says what the subject does or is.","ex":"Arthur <b>lay</b> down in the mud."},{"id":"joining","name":"Joining word (coordinating conjunction)","say":"One of seven small words: for, and, nor, but, or, yet, so. A comma plus one of them can join two complete sentences. Words like then and however are NOT joining words.","ex":"Ford ran<b>, and</b> Arthur followed."},{"id":"opener","name":"Opener (introductory element)","say":"A word or group of words at the start of a sentence that sets the scene but cannot stand alone. It gets a comma after it. Words like because, when and although start openers.","ex":"<b>When Ford ran</b>, Arthur followed."},{"id":"claim","name":"Claim, Evidence, Reasoning","say":"Claim: your answer. Evidence: one specific proof from the text. Reasoning: an explanation of how the evidence proves the claim.","ex":"Claim: Adams makes the end of the Earth darkly funny with situational irony. Evidence: the Earth is demolished for a bypass, just like Arthur's house. Reasoning: the result is the opposite of what Arthur's fight should have won him."},{"id":"concession","name":"Concession","say":"Admit a fair point from the other side, then explain why your claim still stands. A real concession grants something true; it does not insult the other side.","ex":"<i>It is true that</i> the moment is also frightening. <i>Even so</i>, the irony keeps us reading."}]};
+var CODES = {"s2":"QkFCRUw=","s5":"VFJJUExJQ0FURQ==","s7":"Vk9HT04="};
+var KEY = D.meta.key + '-student';
+function load() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function fresh() { return { who: null, tab: 's1', unlocked: {}, st: { rate: {}, ans: {}, conf: {}, chk: {} }, W: { ans: {}, chk: {}, seen: {}, go: 0 }, P: { ans: {}, chk: {}, seen: {}, go: 0 }, diag: {}, diagLocked: {}, ranks: [], ballotDone: false, resetAsk: false }; }
+var S = (function () { var f = fresh(), o = load(); if (o && typeof o === 'object') { for (var k in o) f[k] = o[k]; } return f; })();
+var lockErr = '';
+var STEP = {}; D.steps.forEach(function (s) { STEP[s.id] = s; });
+var CONTEST = {};
+D.steps.forEach(function (st) {
+  if (st.contest === 'W') CONTEST.W = { step: st.id, items: D.wItems, rounds: D.wRounds, title: st.name };
+  if (st.contest === 'P') CONTEST.P = { step: st.id, items: D.pItems, rounds: D.pRounds, title: st.name };
+});
+
+function $(s) { return document.querySelector(s); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function isScreen(st) { return st.tags.indexOf('SCREEN') >= 0; }
+function tabLabel(st) { return st.label; }
+
+/* ---------- contest scoring (the board uses the same rules) ---------- */
+function cScore(items, picks) {
+  var sc = D.scoring, streak = 0, per = [0, 0, 0], tot = 0, pts = [];
+  for (var i = 0; i < items.length; i++) {
+    if (picks[i] == null) break;
+    var ok = picks[i] === items[i].ans, p = 0;
+    if (ok) { streak++; p = sc.correct + (streak >= sc.streakAt ? sc.streakBonus : 0); } else streak = 0;
+    pts.push({ p: p, ok: ok, streak: streak }); per[Math.floor(i / 3)] += p; tot += p;
+  }
+  return { pts: pts, per: per, tot: tot };
+}
+function cPicks(k) { var C = CONTEST[k], st = S[k]; return C.items.map(function (it) { return st.chk[it.id] ? st.ans[it.id] : null; }); }
+function roundDone(k, ri) { var C = CONTEST[k]; return C.rounds[ri].ids.every(function (id) { return S[k].seen[id]; }); }
+function contestDone(k) { return roundDone(k, 2); }
+function done(id) {
+  var st = STEP[id];
+  if (st && st.contest) return contestDone(st.contest);
+  if (st && st.kind === 'starter') return starterDone();
+  return false;
+}
+
+/* ---------- starter (self-rating + two retrieval items) ---------- */
+function starterDone() {
+  var T = D.starter, s = S.st;
+  return T.recall.every(function (it) { return s.chk[it.id]; });
+}
+function starterNums() {
+  var T = D.starter, s = S.st, n = [];
+  T.recall.forEach(function (it) { n.push(s.ans[it.id] + 1); n.push(s.conf[it.id]); });
+  return n;
+}
+/* ---------- shared pieces ---------- */
+function banner(st) {
+  var scr = isScreen(st);
+  return '<div class="banner ' + (scr ? 'scr' : 'off') + '"><b>' + esc(st.label) + '</b><span class="lede">' + esc(st.sub || '') + '</span><span class="tags">' + st.tags.join(' + ') + '</span></div>' +
+    (scr ? '' : '<div class="down"><b>SCREENS DOWN.</b> ' + esc(st.students.replace(/^Screens? down\.?\s*/i, '')) + '</div>');
+}
+function optBtn(it, i, state, act, id, sel, ck) {
+  var cls = 'opt', why = '';
+  if (ck) { if (i === it.ans) cls += ' right'; else if (i === sel) cls += ' wrong'; if (i !== it.ans && it.why[i]) why = '<span class="why">' + it.why[i] + '</span>'; }
+  return '<button class="' + cls + '" data-a="' + act + '" data-id="' + id + '" data-i="' + i + '" aria-pressed="' + (sel === i) + '"' + (ck ? ' disabled' : '') + '><span class="n">' + (i + 1) + '</span><span class="t">' + it.opts[i] + '</span>' + why + '</button>';
+}
+function codeBox(nums, label, note) {
+  return '<div class="card tell"><h3>' + label + '</h3><div class="code" id="codeout">' + nums.map(function (n) { return '<span>' + esc(n) + '</span>'; }).join('') + '</div><p>' + note + '</p></div>';
+}
+function lockCard(tab, title, body) {
+  return '<div class="card lock"><h2>' + title + '</h2><p class="lede">' + body + '</p><label for="codein" class="lede">Code from your tutor</label><input id="codein" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="lerr"><div class="row"><button class="btn primary" data-a="unlock" data-tab="' + tab + '">Unlock</button></div><div class="err" id="lerr" role="alert">' + esc(lockErr) + '</div></div>';
+}
+function termCard(t) { return '<div class="term"><h4>' + t.name + '</h4><p>' + t.say + '</p><div class="ex">' + t.ex + '</div></div>'; }
+function termsFor(ids) { return ids.map(function (i) { return D.terms.filter(function (t) { return t.id === i; })[0]; }).filter(Boolean).map(termCard).join(''); }
+function ruleCard(r) {
+  var rights = String(r.right).split('   |   ').map(function (x) { return '<div class="r"><span class="lab">Right</span>' + esc(x) + '</div>'; }).join('');
+  return '<div class="rule"><h4>' + esc(r.name) + '</h4><p>' + esc(r.say) + '</p><div class="pair"><div class="w"><span class="lab">Wrong</span>' + esc(r.wrong) + '</div>' + rights + '</div></div>';
+}
+function rulesBlock(g) { return D.rules.filter(function (r) { return !g || r.group === g; }).map(ruleCard).join(''); }
+
+/* ---------- step panels (chosen by each step's kind) ---------- */
+function whatCard(st, title) { return '<div class="card"><h3>' + (title || 'What happens') + '</h3><p>' + esc(st.what) + '</p></div>'; }
+function deviceCard(d) {
+  return '<div class="rule"><h4>' + esc(d.name) + '</h4><p>' + esc(d.say) + '</p><div class="pair"><div class="r"><span class="lab">In the book</span>' + esc(d.ex) + '</div><div class="w"><span class="lab">Do not confuse</span>' + esc(d.not) + '</div></div></div>';
+}
+function devicesBlock() { return D.devices.map(deviceCard).join(''); }
+function vTalk(st) { return banner(st) + whatCard(st); }
+function vDevices(st) {
+  return banner(st) + whatCard(st, D.txt.devicesTitle) + '<div class="card"><h3>The device cards</h3>' + devicesBlock() + '</div><div class="card"><h3>New symbol for your Reading Log</h3><p>' + esc(D.symbolNote) + '</p></div>';
+}
+function vSpot(st) {
+  return banner(st) + whatCard(st) + '<div class="card"><details class="tm"><summary>Need the device cards?</summary>' + devicesBlock() + '</details></div>';
+}
+function vRules(st) {
+  return banner(st) + whatCard(st, D.txt.rulesTitle) + '<div class="card"><h3>' + esc(D.txt.rulesGroup) + '</h3>' + rulesBlock(D.txt.rulesGroup) + '</div>' +
+    '<div class="card"><h3>Terms in plain words</h3>' + termsFor(D.ruleTerms) + '</div>';
+}
+function vWriting(st) {
+  return banner(st) + whatCard(st) + '<div class="card"><h3>The parts of the paragraph, in plain words</h3>' + termsFor(['claim', 'concession']) + '</div><div class="card"><details class="tm"><summary>Need the device cards?</summary>' + devicesBlock() + '</details></div>';
+}
+function vWrap(st) {
+  return banner(st) + whatCard(st, 'Homework') + '<div class="card"><h3>Field Guide jobs (about five minutes)</h3><p>' + esc(D.fgNote) + '</p></div><div class="card"><p class="lede">Keep both paper sheets and your Field Guide. Your tutor will take a photo of the back of sheet 1.</p></div>';
+}
+
+function vStarter(st) {
+  var T = D.starter;
+  if (!S.unlocked[st.id]) return banner(st) + lockCard(st.id, T.title, esc(st.what));
+  var s = S.st, h = banner(st);
+  h += '<div class="card"><h3>' + esc(T.p2Head) + '</h3><p class="lede">' + esc(T.p2Note) + '</p></div>';
+  var shownCur = false;
+  T.recall.forEach(function (it, qi) {
+    var ck = !!s.chk[it.id], sel = s.ans[it.id];
+    if (!ck && shownCur) return;
+    if (!ck) shownCur = true;
+    h += '<div class="card"><div class="cat">' + esc(it.cat) + ' · question ' + (qi + 1) + ' of ' + T.recall.length + '</div><div class="stem">' + it.stem + '</div><div class="opts">';
+    it.opts.forEach(function (o, i) { h += optBtn(it, i, 'S', 'spick', it.id, sel, ck); });
+    h += '</div>';
+    h += '<div class="sure"><b>How sure are you?</b><div class="row">';
+    T.confScale.forEach(function (lab, i) { h += '<button class="btn" data-a="sconf" data-id="' + it.id + '" data-i="' + (i + 1) + '" aria-pressed="' + (s.conf[it.id] === i + 1) + '"' + (ck ? ' disabled' : '') + '>' + (i + 1) + ' · ' + esc(lab) + '</button>'; });
+    h += '</div></div>';
+    if (!ck) h += '<div class="row"><button class="btn primary" data-a="schk" data-id="' + it.id + '"' + (sel == null || !s.conf[it.id] ? ' disabled' : '') + '>Check</button></div>';
+    else { var ok = sel === it.ans; h += '<p class="pts">' + (ok ? 'Correct.' : 'Not this time.') + '</p><div class="explain' + (ok ? '' : ' warn') + '"><b class="h">' + (ok ? 'Right. Here is why' : 'Here is why the answer is different') + '</b>' + it.explain + '</div>'; }
+    h += '</div>';
+  });
+  if (starterDone()) h += codeBox(starterNums(), 'Tell your tutor these four numbers, in order', esc(T.codeNote));
+  return h;
+}
+
+/* ---------- contests ---------- */
+function vContest(k) {
+  var C = CONTEST[k], st = S[k], stp = STEP[C.step];
+  if (!S.unlocked[C.step]) return banner(stp) + lockCard(C.step, C.title, esc(stp.what));
+  var h = banner(stp);
+  var sc = D.scoring;
+  h += '<div class="card"><h3>How the contest works</h3><p>Three rounds, three questions each. You earn <b>' + sc.correct + ' points</b> for each correct answer, <b>+' + sc.streakBonus + ' bonus</b> on your third correct answer in a row and on every correct answer after that until you miss (a streak carries over into the next round), and the tutor adds <b>+' + sc.roundWin + '</b> for winning a round. After each answer you see why it is right or wrong.</p>' + (k === 'P' ? '<p class="lede">The practice sentences are made up in the world of our book. They are not quotations from it.</p>' : '') + '</div>';
+  if (k === 'W') {
+    h += '<div class="card"><h3>Word cards</h3><p class="lede">' + esc(D.txt.vocabLede) + '</p>';
+    D.vocab.forEach(function (w) {
+      h += '<details class="tm"' + (st.go === 0 ? ' open' : '') + '><summary>' + esc(w.word) + ' <span class="lede">(' + esc(w.pos) + ')</span></summary><div class="wc"><h4>' + esc(w.word) + '</h4><div class="p">' + esc(w.pos) + ' · say it: ' + esc(w.pron) + '</div><p><b>Means:</b> ' + esc(w.def) + '</p><p><b>Root:</b> ' + esc(w.ety) + '</p><p><b>Similar:</b> ' + esc(w.syn) + ' · <b>Opposite:</b> ' + esc(w.ant) + '</p><p><b>In the book:</b> ' + esc(w.textEx) + '</p><p><b>Example:</b> ' + esc(w.usageEx) + '</p></div></details>';
+    });
+    h += '</div>';
+  } else {
+    h += '<div class="card"><details class="tm"><summary>' + esc(D.txt.contestRulesLabel) + '</summary>' + rulesBlock() + '</details></div>';
+  }
+  if (st.go === 0) { return h + '<div class="card"><h3>Ready?</h3><p>Wait for your tutor to say <b>GO</b>, then start Round 1.</p><div class="row"><button class="btn primary" data-a="cgo" data-k="' + k + '">Start Round 1</button></div></div>'; }
+  var ri = Math.min(st.go, 3) - 1, round = C.rounds[ri];
+  var cur = round.ids.filter(function (id) { return !st.seen[id]; })[0];
+  var sc2 = cScore(C.items, cPicks(k));
+  h += '<div class="card"><div class="row"><span class="pts">Points: ' + sc2.tot + '</span><span class="lede">' + esc(round.name) + '</span></div></div>';
+  if (cur) {
+    var it = C.items.filter(function (x) { return x.id === cur; })[0], ix = C.items.indexOf(it), ck = !!st.chk[cur], sel = st.ans[cur];
+    h += '<div class="card"><div class="cat">' + esc(round.name) + ' · question ' + (round.ids.indexOf(cur) + 1) + ' of 3' + (it.rule && k === 'P' ? ' · rule: ' + esc(it.rule) : '') + '</div><div class="stem">' + it.stem + '</div><div class="opts">';
+    it.opts.forEach(function (o, i) { h += optBtn(it, i, k, 'cpick', cur + '|' + k, sel, ck); });
+    h += '</div>';
+    if (!ck) h += '<div class="row"><button class="btn primary" data-a="ccheck" data-k="' + k + '" data-id="' + cur + '"' + (sel == null ? ' disabled' : '') + '>Check</button></div>';
+    else {
+      var ok = sel === it.ans, pt = sc2.pts[ix];
+      h += '<p class="pts">' + (ok ? 'Correct: +' + pt.p + ' points' + (pt.streak >= D.scoring.streakAt ? ' (streak bonus!)' : '') : 'Not this time: 0 points') + '</p>';
+      h += '<div class="explain' + (ok ? '' : ' warn') + '"><b class="h">' + (ok ? 'Right. Here is why' : 'Here is why the answer is different') + '</b>' + it.explain + '</div>';
+      h += '<div class="row"><button class="btn primary" data-a="cnext" data-k="' + k + '" data-id="' + cur + '">' + (round.ids.indexOf(cur) === 2 ? 'Finish round ' + (ri + 1) : 'Next question') + '</button></div>';
+    }
+    return h + '</div>';
+  }
+  // round finished
+  var nums = round.ids.map(function (id) { return st.ans[id] + 1; });
+  h += '<div class="card"><h3>' + esc(round.name) + ' complete</h3><p class="score">Round points: ' + sc2.per[ri] + '</p></div>';
+  h += codeBox(nums, 'Round ' + (ri + 1) + ': tell your tutor these three numbers', 'They are the answers you picked. Your tutor types them in to update the scoreboard. Then wait for the next GO.');
+  if (ri < 2) h += '<div class="card"><p>Wait for your tutor to say <b>GO</b>.</p><div class="row"><button class="btn primary" data-a="cgo" data-k="' + k + '">Start Round ' + (ri + 2) + '</button></div></div>';
+  else {
+    h += '<div class="card"><h3>Final points: ' + sc2.tot + '</h3><p class="lede">Round 1: ' + sc2.per[0] + ' · Round 2: ' + sc2.per[1] + ' · Round 3: ' + sc2.per[2] + '. Your tutor adds the round-win bonus on the big screen.</p></div>';
+    h += '<div class="card"><h3>Review any question</h3>' + C.items.map(function (it) {
+      var ok = st.ans[it.id] === it.ans;
+      return '<details class="tm"><summary>' + (ok ? '✓' : '✗') + ' ' + (C.items.indexOf(it) + 1) + ' · ' + esc(it.cat) + '</summary><div class="stem">' + it.stem + '</div><div class="explain"><b class="h">Right answer</b>' + it.opts[it.ans] + '<br><br>' + it.explain + '</div></details>';
+    }).join('') + '</div>';
+  }
+  return h;
+}
+
+/* ---------- shell ---------- */
+function render() {
+  var app = $('#app');
+  if (!S.who) {
+    app.innerHTML = '<main><div class="card pick"><div class="brand">' + esc(D.meta.brand) + '</div><h2>Which letter are you?</h2><p class="lede">Your tutor will tell you. You only pick this once.</p><div class="letters">' + ['A', 'B', 'C', 'D'].map(function (l) { return '<button data-a="who" data-l="' + l + '" aria-label="Student ' + l + '">' + l + '</button>'; }).join('') + '</div></div></main>';
+    return;
+  }
+  var tabs = D.steps.map(function (t) {
+    return '<button class="tab ' + (isScreen(t) ? 'scr' : 'off') + '" data-a="tab" data-t="' + t.id + '" aria-current="' + (S.tab === t.id) + '">' + esc(tabLabel(t)) + (done(t.id) ? '<span class="tick" aria-label="done">&#10003;</span>' : '') + '</button>';
+  }).join('');
+  var KIND = { talk: vTalk, read: vTalk, starter: vStarter, devices: vDevices, spot: vSpot, rules: vRules, writing: vWriting, wrap: vWrap };
+  var cur0 = STEP[S.tab] || D.steps[0];
+  var body = cur0.contest ? vContest(cur0.contest) : KIND[cur0.kind](cur0);
+  var foot = '<div class="card"><div class="row"><button class="linkbtn" data-a="reset">' + (S.resetAsk ? 'Tap again to erase this device and start over' : 'Start over on this device') + '</button></div></div>';
+  var prevScroll = (document.querySelector('.tabs') || {}).scrollLeft;
+  app.innerHTML = '<div class="bar"><div class="head"><span class="brand">' + esc(D.meta.brand) + '</span><span class="who">Student <b>' + S.who + '</b><button class="linkbtn" data-a="chwho">change</button></span></div><nav class="tabs" aria-label="Steps">' + tabs + '</nav></div><main>' + body + foot + '</main>';
+  var cur = document.querySelector('.tab[aria-current="true"]');
+  if (cur && cur.scrollIntoView) { try { cur.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) {} }
+}
+
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-a]'); if (!el) return;
+  var a = el.getAttribute('data-a'), id = el.getAttribute('data-id');
+  if (a === 'who') S.who = el.getAttribute('data-l');
+  else if (a === 'chwho') S.who = null;
+  else if (a === 'tab') { S.tab = el.getAttribute('data-t'); lockErr = ''; S.resetAsk = false; window.scrollTo(0, 0); }
+  else if (a === 'cgo') { var k = el.getAttribute('data-k'); S[k].go = Math.min(3, S[k].go + 1); }
+  else if (a === 'cpick') { var p = id.split('|'), kk = p[1], iid = p[0]; if (!S[kk].chk[iid]) S[kk].ans[iid] = +el.getAttribute('data-i'); }
+  else if (a === 'ccheck') { var k2 = el.getAttribute('data-k'); S[k2].chk[id] = true; }
+  else if (a === 'cnext') { var k3 = el.getAttribute('data-k'); S[k3].seen[id] = true; window.scrollTo(0, 0); }
+  else if (a === 'srate') { S.st.rate[id] = +el.getAttribute('data-i'); }
+  else if (a === 'spick') { if (!S.st.chk[id]) S.st.ans[id] = +el.getAttribute('data-i'); }
+  else if (a === 'sconf') { if (!S.st.chk[id]) S.st.conf[id] = +el.getAttribute('data-i'); }
+  else if (a === 'schk') { S.st.chk[id] = true; }
+  else if (a === 'dpick') { if (!S.diagLocked[id]) S.diag[id] = +el.getAttribute('data-i'); }
+  else if (a === 'dlock') S.diagLocked[id] = true;
+  else if (a === 'unlock') {
+    var t = el.getAttribute('data-tab'), v = ($('#codein').value || '').replace(/\s+/g, '').toUpperCase();
+    if (v && btoa(v) === CODES[t]) { S.unlocked[t] = true; lockErr = ''; } else lockErr = 'That code is not right. Check the spelling with your tutor.';
+  }
+  else if (a === 'rank') {
+    var n = +el.getAttribute('data-n'), kr = +el.getAttribute('data-k') - 1;
+    var arr = [S.ranks[0], S.ranks[1], S.ranks[2]]; var old = arr.indexOf(n); if (old >= 0) arr[old] = undefined; arr[kr] = n;
+    S.ranks = arr.map(function (x) { return x === undefined ? null : x; });
+    while (S.ranks.length && S.ranks[S.ranks.length - 1] === null) S.ranks.pop();
+  }
+  else if (a === 'unrank') { var nn = +el.getAttribute('data-n'); var j = S.ranks.indexOf(nn); if (j >= 0) S.ranks[j] = null; while (S.ranks.length && S.ranks[S.ranks.length - 1] === null) S.ranks.pop(); }
+  else if (a === 'lockvote') { if (S.ranks.length === 3 && S.ranks.indexOf(null) < 0) S.ballotDone = true; }
+  else if (a === 'reset') { if (S.resetAsk) { S = fresh(); lockErr = ''; } else S.resetAsk = true; }
+  save(); render();
+});
+render();
+</script>
+</body></html>
